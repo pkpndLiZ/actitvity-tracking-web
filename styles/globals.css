@@ -28,4 +28,31 @@ body {
   @apply col-span-2;
 }
 
+/* ========== Navbar Component ========== */
 
+.navbar-container {
+  @apply flex bg-card;
+} 
+
+.left-navbar-container {
+  @apply flex w-1/2 items-center;
+}
+
+.left-navbar-container span:first-child {
+  @apply text-white pl-4 text-4xl font-semibold;
+}
+
+.left-navbar-container span:nth-child(2) {
+  @apply text-violet-700 text-4xl;
+}
+.right-navbar-container {
+  @apply flex w-1/2 justify-end gap-x-3 pr-8 h-16 items-center;
+}
+
+.right-navbar-container span {
+  @apply text-white text-xl;
+}
+
+.right-navbar-container a {
+  @apply text-violet-700 text-xl;
+}
