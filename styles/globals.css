@@ -17,7 +17,6 @@
 } */
 
 body {
- 
 }
 
 .main-layout-container {
@@ -32,7 +31,7 @@ body {
 
 .navbar-container {
   @apply flex bg-card;
-} 
+}
 
 .left-navbar-container {
   @apply flex w-1/2 items-center;
@@ -55,4 +54,67 @@ body {
 
 .right-navbar-container a {
   @apply text-violet-700 text-xl;
+}
+
+/* ========== Sidebar Component ========== */
+
+.sidebar-container {
+  @apply w-4/5;
+}
+
+.top-sidebar-container span,
+h3 {
+  @apply text-white;
+}
+
+.top-sidebar-container :first-child {
+  @apply text-2xl font-semibold;
+}
+
+.top-sidebar-container {
+  @apply pt-12 pl-12 flex flex-col gap-y-2;
+}
+
+.side-menu {
+  @apply flex gap-x-3 pt-4 pb-4 pl-6 text-2xl;
+}
+
+.sidemenu-border {
+  @apply pt-6 w-1/2 border-b-2 border-zinc-100;
+}
+
+.side-menu-icon {
+  @apply text-3xl;
+}
+
+.sidebar-container span {
+  @apply grid grid-cols-9;
+}
+
+.sidebar-container span p {
+  @apply col-span-8;
+}
+
+.bottom-sidebar-container {
+  @apply pt-4 pl-12 flex flex-col gap-y-2;
+}
+
+.bottom-sidebar-container {
+  @apply text-white;
+}
+
+.side-menu.active {
+  @apply bg-zinc-800 rounded-3xl;
+}
+
+.side-menu.active p {
+  @apply text-violet-900;
+}
+
+.side-menu.active .side-menu-icon {
+  @apply text-violet-900;
+}
+
+.side-menu:hover {
+  @apply bg-zinc-800 rounded-3xl cursor-pointer;
 }
