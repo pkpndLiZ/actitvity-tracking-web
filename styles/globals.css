@@ -58,10 +58,6 @@ body {
 
 /* ========== Sidebar Component ========== */
 
-.sidebar-container {
-  @apply w-4/5;
-}
-
 .top-sidebar-container span,
 h3 {
   @apply text-white;
