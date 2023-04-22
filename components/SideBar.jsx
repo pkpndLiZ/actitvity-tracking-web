@@ -14,7 +14,9 @@ export function SideBar() {
   const [activeMenu, setActiveMenu] = useState("");
 
   const handleMenuClick = (menuName) => {
-    setActiveMenu(menuName);
+    setActiveMenu((currentActiveMenu) =>
+      menuName === currentActiveMenu ? "" : menuName
+    );
   };
 
   return (

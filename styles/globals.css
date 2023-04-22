@@ -80,7 +80,7 @@ h3 {
 }
 
 .side-menu-icon {
-  @apply text-3xl;
+  @apply h-5 w-5 self-center justify-self-center;
 }
 
 .sidebar-container span {
@@ -113,4 +113,8 @@ h3 {
 
 .side-menu:hover {
   @apply bg-zinc-800 rounded-3xl cursor-pointer;
+}
+
+.top-sidebar-container h3 {
+  @apply pb-4;
 }
