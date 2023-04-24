@@ -58,8 +58,8 @@ export function SideBar() {
           <FontAwesomeIcon icon={faPersonRunning} className="side-menu-icon" />
           <p>Running</p>
         </span>
-        <div className="sidemenu-border"></div>
       </div>
+      <div className="sidemenu-border"></div>
       <div className="bottom-sidebar-container">
         <span
           className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
