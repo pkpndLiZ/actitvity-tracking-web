@@ -59,7 +59,7 @@ export function SideBar() {
           <p>Running</p>
         </span>
       </div>
-      <div className="sidemenu-border"></div>
+      <div className="border-b ml-12 pb-4"></div>
       <div className="bottom-sidebar-container">
         <span
           className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}

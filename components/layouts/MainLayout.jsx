@@ -8,7 +8,7 @@ export function MainLayout({ children }) {
         <NavBar />
       </div>
       <div className="main-layout-container">
-        <div>
+        <div className="w-[250px]">
           <SideBar />
         </div>
         <div className="main">{children}</div>
