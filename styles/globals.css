@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./NavBar.css";
+@import "./SideBar.css";
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,7 +17,6 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
-
 body {
   margin: 0 auto;
   padding: 0;
@@ -30,96 +31,4 @@ body {
 
 .main-layout-container .main {
   @apply col-span-2;
-}
-
-/* ========== Navbar Component ========== */
-
-.navbar-container {
-  @apply flex bg-card;
-}
-
-.left-navbar-container {
-  @apply flex w-1/2 items-center;
-}
-
-.left-navbar-container span:first-child {
-  @apply text-white pl-4 text-4xl font-semibold;
-}
-
-.left-navbar-container span:nth-child(2) {
-  @apply text-violet-700 text-4xl;
-}
-.right-navbar-container {
-  @apply flex w-1/2 justify-end gap-x-3 pr-8 h-16 items-center;
-}
-
-.right-navbar-container span {
-  @apply text-white text-xl;
-}
-
-.right-navbar-container a {
-  @apply text-violet-700 text-xl;
-}
-
-/* ========== Sidebar Component ========== */
-
-.top-sidebar-container span,
-h3 {
-  @apply text-white;
-}
-
-.top-sidebar-container :first-child {
-  @apply text-2xl font-semibold;
-}
-
-.top-sidebar-container {
-  @apply pt-12 ml-12 flex flex-col gap-y-2;
-}
-
-.side-menu {
-  @apply flex gap-x-3 pt-4 pb-4 pl-6 text-2xl;
-}
-
-.sidebar-container {
-  @apply flex flex-col;
-}
-
-.side-menu-icon {
-  @apply h-10 w-10 self-center justify-self-center;
-}
-
-.sidebar-container span {
-  @apply grid grid-cols-9;
-}
-
-.sidebar-container span p {
-  @apply col-span-8 w-40;
-}
-
-.bottom-sidebar-container {
-  @apply pt-4 pl-12 flex flex-col gap-y-2;
-}
-
-.bottom-sidebar-container {
-  @apply text-white;
-}
-
-.side-menu.active {
-  @apply bg-zinc-800 rounded-3xl;
-}
-
-.side-menu.active p {
-  @apply text-violet-900;
-}
-
-.side-menu.active .side-menu-icon {
-  @apply text-violet-900;
-}
-
-.side-menu:hover {
-  @apply bg-zinc-800 rounded-3xl cursor-pointer;
-}
-
-.top-sidebar-container h3 {
-  @apply pb-4;
 }
