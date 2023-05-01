@@ -22,7 +22,7 @@ h3 {
 }
 
 .side-menu-icon {
-  @apply h-10 w-10 self-center justify-self-center;
+  @apply h-10 w-10 pr-4 self-center justify-self-center;
 }
 
 .sidebar-container span {
