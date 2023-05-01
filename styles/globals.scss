@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./NavBar.css";
-@import "./SideBar.css";
+@import './card-item.module.scss';
+@import "./NavBar.scss";
+@import "./SideBar.scss";
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,12 +19,13 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
+
 body {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   max-width: 1440px;
-  @apply bg-main;
+  @apply bg-main; 
 }
 
 .main-layout-container {

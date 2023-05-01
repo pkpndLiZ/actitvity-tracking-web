@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import "@/styles/globals.scss";
 
 // import Font Awesome CSS
 import "@fortawesome/fontawesome-svg-core/styles.css"; 
@@ -10,5 +10,5 @@ config.autoAddCss = false;
 
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }

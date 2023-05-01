@@ -1,0 +1,131 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Luxurious+Roman&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Luxurious+Roman&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.card-item {
+    @apply bg-card w-[242px] rounded-2xl text-white text-[0.75rem] font-[Dosis];
+
+    .card-header {
+        @apply flex py-3 px-5  gap-4 w-full justify-between font-bold;
+        
+        #card-config {
+            @apply justify-self-end;
+        }
+        .card-profile {
+            @apply flex gap-3 items-center;
+
+            .profile-img{
+                @apply  rounded-full bg-gradient-to-r from-slate-800 bg-purple-950 to-purple-500 p-[2px];
+
+                img {
+                    @apply rounded-full aspect-square;
+                }
+            }           
+        }
+        
+    }
+
+    .image-content {
+        @apply relative ;
+
+        .card-image {
+            @apply w-full h-[245px] relative;           
+        }
+
+        .activity-detail-container {
+            @apply absolute left-0 bottom-0 pl-4 pb-4 w-full bg-gradient-to-t from-black to-black/0 ;
+
+            .distance-duration {
+                @apply flex gap-1;
+
+                .icon {
+                    @apply w-5 flex items-center justify-center;
+                } 
+                
+            }
+         
+            .activity-tag {
+                @apply pt-2 pl-0.5;
+            }
+               
+        }   
+    }
+
+    .text-content {
+        @apply px-6 pb-1;
+       
+        .activity-detail {
+            @apply bg-black py-4 flex flex-col gap-1 justify-center items-center  shadow-2xl;
+
+            .distance-duration {
+                @apply flex gap-1;    
+                
+                p {
+                    @apply text-[0.85rem] font-semibold;
+                }
+            }
+
+            .activity-tag {
+                @apply pt-2 text-[0.5rem];
+            }
+        }
+      
+    }
+
+    .post-content {
+        @apply pl-6 pt-2 pb-2;
+
+        .date {
+            @apply text-[0.5rem] pb-1;
+        }
+
+        .title {
+            @apply font-bold;
+        }
+    }
+
+    .user-interact {        
+        @apply flex p-2 pb-3 gap-8 justify-evenly;
+    }
+
+   
+   
+    //custom activity tag
+    .activity-tag {
+                
+        button {
+            display: flex;
+            align-items: center;
+            font-family: inherit;
+            font-weight: 500;
+            // text-align: center;
+            // font-size: 16px;
+            padding: 0.04rem 0.7rem;
+            color: white;
+            background: #c7b6c8;
+            background: linear-gradient(0deg, rgb(55, 12, 60) 0%, rgb(201, 77, 235) 100%);
+            border: none;
+            box-shadow: 0 0.7em 1.5em -0.5em #18041d98;
+            letter-spacing: 0.05em;
+            border-radius: 20em;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        button:hover {
+            box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+          }
+          
+          button:active {
+            box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+          }
+    }
+
+    
+}
+
+
+
+
