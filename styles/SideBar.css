@@ -1,0 +1,62 @@
+/* ========== Sidebar Component ========== */
+
+.top-sidebar-container span,
+h3 {
+  @apply text-white;
+}
+
+.top-sidebar-container :first-child {
+  @apply text-2xl font-semibold;
+}
+
+.top-sidebar-container {
+  @apply pt-12 ml-12 flex flex-col gap-y-2;
+}
+
+.side-menu {
+  @apply flex gap-x-3 pt-4 pb-4 pl-6 text-2xl;
+}
+
+.sidebar-container {
+  @apply flex flex-col;
+}
+
+.side-menu-icon {
+  @apply h-10 w-10 pr-4 self-center justify-self-center;
+}
+
+.sidebar-container span {
+  @apply grid grid-cols-9;
+}
+
+.sidebar-container span p {
+  @apply col-span-8 w-40;
+}
+
+.bottom-sidebar-container {
+  @apply pt-4 pl-12 flex flex-col gap-y-2;
+}
+
+.bottom-sidebar-container {
+  @apply text-white;
+}
+
+.side-menu.active {
+  @apply bg-zinc-800 rounded-3xl;
+}
+
+.side-menu.active p {
+  @apply text-violet-900;
+}
+
+.side-menu.active .side-menu-icon {
+  @apply text-violet-900;
+}
+
+.side-menu:hover {
+  @apply bg-zinc-800 rounded-3xl cursor-pointer;
+}
+
+.top-sidebar-container h3 {
+  @apply pb-4;
+}
