@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./NavBar.css";
+@import "./SideBar.css";
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,9 +17,12 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
-
 body {
- 
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 1440px;
+  @apply bg-main;
 }
 
 .main-layout-container {
@@ -26,33 +31,4 @@ body {
 
 .main-layout-container .main {
   @apply col-span-2;
-}
-
-/* ========== Navbar Component ========== */
-
-.navbar-container {
-  @apply flex bg-card;
-} 
-
-.left-navbar-container {
-  @apply flex w-1/2 items-center;
-}
-
-.left-navbar-container span:first-child {
-  @apply text-white pl-4 text-4xl font-semibold;
-}
-
-.left-navbar-container span:nth-child(2) {
-  @apply text-violet-700 text-4xl;
-}
-.right-navbar-container {
-  @apply flex w-1/2 justify-end gap-x-3 pr-8 h-16 items-center;
-}
-
-.right-navbar-container span {
-  @apply text-white text-xl;
-}
-
-.right-navbar-container a {
-  @apply text-violet-700 text-xl;
 }
