@@ -1,19 +1,24 @@
 import { CardItem } from "@/components/CardItem";
+import { CardItemList } from "@/src/fixture/card-item-mock";
 
 export function HomeContent() {
   return (
-    <>
-      <CardItem
-        profileName="Abdula.raf"
-        profileImage="/images/mock/man.png"
-        // imageUrl="/images/mock/man.png"
-        imageUrl={null}
-        duration={{ hr: 4, min: 23 }}
-        distance="4.6"
-        date="07/03/2030"
-        title="We Can Do It!"
-        description="View this so good."
-      />
-    </>
+    <div className="pl-[1rem] pt-[1rem] gap-1 columns-1 md:columns-2 xl:columns-3 2xl:columns-3 space-y-4 w-full h-fit">
+      {CardItemList.map((item, index) => {
+        return (
+          <CardItem
+            key={index}
+            profileName={item.profileName}
+            profileImage={item.profileImage}
+            imageUrl={item.imageUrl}
+            duration={item.duration}
+            distance={item.distance}
+            date={item.date}
+            title={item.title}
+            description={item.description}
+          />
+        );
+      })}
+    </div>
   );
 }
