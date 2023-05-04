@@ -11,11 +11,11 @@ export const Register = (props) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (registerData) => {
-    console.log("email: ", registerData.email);
-    console.log("password: ", registerData.password);
     console.log("name: ", registerData.name);
     console.log("birthdate: ", registerData.birthdate);
     console.log("gender: ", registerData.gender);
+    console.log("email: ", registerData.email);
+    console.log("password: ", registerData.password);
   };
 
   return (
@@ -28,6 +28,7 @@ export const Register = (props) => {
           // value={name}
           // name="name"
           // onChange={(e) => setName(e.target.value)}
+          {...register("name")}
           id="name"
           placeholder="name"
         />
@@ -37,8 +38,10 @@ export const Register = (props) => {
           // value={birthdate}
           // name="birthdate"
           // onChange={(e) => setBirthdate(e.target.value)}
+          {...register("birthdate")}
           id="birthdate"
           placeholder="birthdate"
+          type="date"
         />
         {/* gender */}
         <label htmlFor="gender">Gender</label>
@@ -46,6 +49,7 @@ export const Register = (props) => {
           // value={gender}
           // name="gender"
           // onChange={(e) => setGender(e.target.value)}
+          {...register("gender")}
           id="gender"
           placeholder="gender"
         />
@@ -54,6 +58,7 @@ export const Register = (props) => {
         <input
           // value={email}
           // onChange={(e) => setEmail(e.target.value)}
+          {...register("email")}
           type="email"
           placeholder="email@email.com"
           id="email"
@@ -67,6 +72,7 @@ export const Register = (props) => {
           type="password"
           placeholder="********"
           id="password"
+          {...register("password")}
           // name="password"
         />
         <button type="submit">Submit</button>
