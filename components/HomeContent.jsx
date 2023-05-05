@@ -1,10 +1,10 @@
 import { CardItem } from "@/components/CardItem";
-import { ActivityForm } from "./ActivityForm";
+// import { CreateActivity } from "./CreateActivity";
 
 export function HomeContent() {
   return (
     <>
-      {/* <CardItem
+      <CardItem
         profileName="Abdula.raf"
         profileImage="/images/mock/man.png"
         // imageUrl="/images/mock/man.png"
@@ -14,8 +14,8 @@ export function HomeContent() {
         date="07/03/2030"
         title="We Can Do It!"
         description="View this so good."
-      /> */}
-      <ActivityForm />
+      />
+      {/* <CreateActivity /> */}
     </>
   );
 }
