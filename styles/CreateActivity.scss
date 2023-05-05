@@ -24,7 +24,7 @@
         .type-container {
             @apply flex flex-col gap-1 w-2/4;
             #activity-type {
-                @apply rounded-lg pl-2 h-8 text-xl w-full text-black;
+                @apply rounded-lg pl-2 h-8 text-xl w-full pr-2 text-black;
             }
         }
         .date-container {
