@@ -1,5 +1,4 @@
 import { CardItem } from "@/components/CardItem";
-// import { CreateActivity } from "./CreateActivity";
 
 export function HomeContent() {
   return (
@@ -15,7 +14,6 @@ export function HomeContent() {
         title="We Can Do It!"
         description="View this so good."
       />
-      {/* <CreateActivity /> */}
     </>
   );
 }
