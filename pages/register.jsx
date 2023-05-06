@@ -52,7 +52,7 @@ export const Register = (props) => {
             placeholder="********"
             type="password"
           />
-          <button type="submit" role="button" className="submit">
+          <button type="submit" role="button" id="submit">
             Submit
           </button>
         </form>
