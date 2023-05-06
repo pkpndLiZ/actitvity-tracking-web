@@ -12,7 +12,7 @@ export const Login = (props) => {
   return (
     <div className="App">
       <div className="auth-form-container">
-        <h1>Login</h1>
+        <div className="title">Login</div>
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">Email</label>
           <input
@@ -30,7 +30,9 @@ export const Login = (props) => {
             id="password"
             name="password"
           />
-          <button type="submit">Log In</button>
+          <button type="submit" id="submit">
+            Log In
+          </button>
         </form>
         <button
           className="link-btn"
