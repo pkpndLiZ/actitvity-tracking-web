@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     color: grey;
-    background-image: linear-gradient(79deg, black, rgb(40, 40, 40) 48%, grey);
+    background-image: linear-gradient(79deg, #131514, rgb(40, 40, 40) 48%, grey);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -17,10 +17,14 @@
 
 @media screen and (min-width: 600px) {
     .auth-form-container {
-        padding: 5rem;
+        padding: 2rem 6rem;
         border: 5px solid violet;
         border-radius: 10px;
         margin: 0.5rem;
+    }
+    .submit {
+        min-width: 120px;
+        padding: 0 25px;
     }
 }
 
@@ -29,35 +33,67 @@
     font-size: xx-large;
     padding: 0.25rem 0;
     margin-top: 20px;
+    color: #c95bfa;
 }
 
 label {
     text-align: left;
     font-size: larger;
     padding: 0.25rem 0;
-    margin-top: 20px;
+    margin-top: 15px;
+    color: #c95bfa;
 }
 
 input {
-    margin: 0.5rem 0;
-    padding: 1rem;
-    border: 1rem;
+    margin: 1rem 0;
+    padding: 2rem;
+    border: 2rem;
     border-radius: 10px;
-    color: grey;
+    text-indent: 10%;
 }
 
-button {
-    border: none;
-    background-color: black;
+/* .submit {
+    border: 2rem 3px white;
     margin: 20px;
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
-    color: #7439db;
-}
+    color: white;
+    font-size: larger;
+} */
 
 .link-btn {
     background: none;
     color: white;
     text-decoration: underline;
+    font-size: large;
+}
+
+.submit {
+    background-color: #fbeee0;
+    border: 2px solid #c95bfa;
+    border-radius: 30px;
+    box-shadow: #c95bfa 4px 4px 0 0;
+    color: #c95bfa;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 10px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 30px
+}
+
+.submit:hover {
+    background-color: #fff;
+}
+
+.submit:active {
+    box-shadow: white 2px 2px 0 0;
+    transform: translate(2px, 2px);
 }
