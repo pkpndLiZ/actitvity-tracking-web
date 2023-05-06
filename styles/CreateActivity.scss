@@ -1,0 +1,63 @@
+.form-container {
+    @apply text-white mt-2 border border-solid border-white rounded-md;
+    form {
+        @apply flex flex-col items-center gap-4;
+        h3 {
+            @apply text-4xl pt-4;
+        }
+        .image-container {
+            @apply flex flex-col items-center;
+            }
+            .image-preview {
+                @apply w-48 h-48 flex content-center items-center;
+            }
+            #image {
+                @apply ml-36 pt-4 ;
+            }
+        }
+        .title-container {
+            @apply flex flex-col gap-1 w-2/4;
+            #activity-title {
+                @apply rounded-lg pl-1 h-8 text-xl w-full text-black;
+            }
+        }
+        .type-container {
+            @apply flex flex-col gap-1 w-2/4;
+            #activity-type {
+                @apply rounded-lg pl-2 h-8 text-xl w-full pr-2 text-black;
+            }
+        }
+        .date-container {
+            @apply flex flex-col gap-1 w-2/4;
+            #activity-date {
+                @apply rounded-lg pl-2 h-8 text-xl w-full pr-2  text-black;
+            }
+        }
+        .duration-container {
+            @apply flex flex-row  gap-4  pt-2;
+            #activity-hour {
+                @apply text-black w-20 text-center rounded-md h-8 ;
+            }
+            #activity-minutes {
+                @apply text-black w-20 text-center rounded-md h-8;
+            }
+        }
+        .distance-container {
+            @apply flex flex-col gap-1 w-2/4;
+            #activity-distance {
+                @apply rounded-lg pl-1 h-8 text-xl w-full text-black;
+            }
+        }
+        .description-container {
+            @apply flex flex-col gap-1 w-2/4;
+            #activity-description {
+                @apply rounded-lg pl-1 h-40 text-xl w-full text-black;
+            }
+        }
+        .submit-button {
+            @apply text-2xl border border-violet-950 rounded-xl pt-2 pb-2 pl-4 pr-4 mb-4 bg-violet-700;
+        }
+        .submit-button:hover{
+            @apply bg-violet-400 text-black duration-300;
+        }
+    }
