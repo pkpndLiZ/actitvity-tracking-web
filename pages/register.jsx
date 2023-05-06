@@ -52,12 +52,11 @@ export const Register = (props) => {
             placeholder="********"
             type="password"
           />
-          <button type="submit">Submit</button>
+          <button type="submit" role="button" className="submit">
+            Submit
+          </button>
         </form>
-        <button
-          className="link-btn"
-          onClick={() => props.onFormSwitch("login")}
-        >
+        <button className="link-btn">
           Already have an account? Login here.
         </button>
       </div>
