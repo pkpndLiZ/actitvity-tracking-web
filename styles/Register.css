@@ -31,7 +31,7 @@
 .title {
     text-align: center;
     font-size: xx-large;
-    padding: 0.25rem 0;
+    /* padding: 0.25rem 0; */
     margin-top: 20px;
     color: #c95bfa;
 }
@@ -51,6 +51,13 @@ input {
     border-radius: 10px;
     text-indent: 10%;
     font-size: 20px;
+}
+
+#data-agreement {
+    text-align: left;
+    font-size: 18px;
+    margin-top: 15px;
+    color: white;
 }
 
 .link-btn {
