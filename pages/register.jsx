@@ -10,6 +10,7 @@ export const Register = (props) => {
     console.log("gender: ", registerData.gender);
     console.log("email: ", registerData.email);
     console.log("password: ", registerData.password);
+    console.log("agreement: ", registerData.agreement);
   };
 
   return (
@@ -52,6 +53,23 @@ export const Register = (props) => {
             placeholder="********"
             type="password"
           />
+          <div id="data-agreement">
+            <p>Do you allow us to use your data?</p>
+            <input
+              {...register("agreement")}
+              type="checkbox"
+              id="data-agreement"
+            />
+            <label htmlFor="data-agreement" id="data-agreement">
+              &nbsp;Yes, I do.
+              <span>
+                &nbsp;Read
+                <span>
+                  <a href="#"> the agreement.</a>
+                </span>
+              </span>
+            </label>
+          </div>
           <button type="submit" role="button" id="submit">
             Submit
           </button>
