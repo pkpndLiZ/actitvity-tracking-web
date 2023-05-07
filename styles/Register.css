@@ -50,6 +50,7 @@ input {
     border: 2rem;
     border-radius: 10px;
     text-indent: 10%;
+    font-size: 20px;
 }
 
 .link-btn {
