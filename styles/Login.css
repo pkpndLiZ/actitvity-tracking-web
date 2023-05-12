@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   color: black;
-  background-image: linear-gradient(79deg, #131514, rgb(40, 40, 40) 48%, grey);
+  background-color: #1f2022;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -16,10 +16,10 @@
 
 @media screen and (min-width: 600px) {
   .auth-form-container {
-    padding: 5rem;
+    padding: 3rem;
     border: 5px solid violet;
     border-radius: 10px;
-    margin: 0.5rem;
+    margin: 1rem;
   }
   .submit {
     min-width: 120px;
@@ -29,15 +29,14 @@
 
 .title {
   text-align: center;
-  font-size: xx-large;
-  padding: 0.25rem 0;
-  margin-top: 20px;
+  font-size: 50px;
+  font-weight: 900;
   color: #c95bfa;
 }
 
 label {
   text-align: left;
-  font-size: larger;
+  font-size: x-large;
   padding: 0.25rem 0;
   margin-top: 15px;
   color: #c95bfa;
@@ -49,6 +48,12 @@ input {
   border: 2rem;
   border-radius: 10px;
   text-indent: 10%;
+  font-size: x-large;
+}
+
+#email,
+#password {
+  font-size: x-large;
 }
 
 .link-btn {
@@ -61,7 +66,6 @@ input {
 .link-btn:hover {
   color: #c95bfa;
 }
-
 
 #submit {
   background-color: purple;
