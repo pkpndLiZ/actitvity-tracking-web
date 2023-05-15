@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { axiosInstance } from "../utils/axiosInstance";
+import { mutate } from "swr";
 
-export function CreateActivity() {
+export function CreateActivity(props) {
   const {
     register,
     handleSubmit,
@@ -9,23 +12,48 @@ export function CreateActivity() {
     reset,
   } = useForm();
 
+  const router = useRouter();
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = (data) => {
     const newActivity = {
-      imageUrl: imageUrl,
-      title: data.title,
+      userId: "1123455667",
+      username: "somngiNGuy",
+      userImage: "myImg",
       type: data.activityType,
+      imageUrl:
+        "https://images.unsplash.com/photo-1568736333610-eae6e0ab9206?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
+      duration: { hr: data.hours, min: data.minutes },
+      distance: data.distance,
       date: data.date,
+      title: data.title,
       description: data.description,
-      duration: { hour: `${data.hours} hr`, minute: `${data.minutes} minute` },
-      distance: `${data.distance}km`,
     };
 
     console.log(newActivity);
-    reset();
+    axiosInstance
+      .post("/posts", newActivity)
+      .then(async (response) => {
+        setSuccess(true);
+        console.log("response: ", response);
+        await mutate("/posts");
+        props.onClose();
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log("error: " + error.message);
+      });
+
+    // console.log(newActivity);
   };
+
+  async function getServerSideProps() {
+    const { data } = await axiosInstance.post("/api/data");
+    return { props: { data } };
+  }
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -143,6 +171,23 @@ export function CreateActivity() {
           />
           {errors.description && <span>This field is required</span>}
         </div>
+
+        {/* {error && (
+          <div
+            class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
+            role="alert"
+          >
+            An error occurred: {error}
+          </div>
+        )}
+        {success && (
+          <div
+            class="mb-4 rounded-lg bg-success-100 px-6 py-5 text-base text-success-700"
+            role="alert"
+          >
+            success
+          </div>
+        )} */}
 
         <div>
           <button
