@@ -1,11 +1,11 @@
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { HomeContent } from "@/components/HomeContent";
-import { Login } from "./login";
+import { SideBar } from "@/components/SideBar";
 
 export default function Home() {
   return (
     <>
-      <Login />
+      <MainLayout sidebar={<SideBar />} homeContent={<HomeContent />} />
     </>
   );
 }
