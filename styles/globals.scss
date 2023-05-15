@@ -6,6 +6,8 @@
 @import "./NavBar.scss";
 @import "./SideBar.scss";
 @import "./Register.css";
+@import "./CreateActivity.scss";
+@import './EditActivity.scss';
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
@@ -21,18 +23,29 @@
   }
 } */
 
+$nav_bar_height: 64px;
+
 body {
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
-  max-width: 1440px;
-  @apply bg-main; 
+  // margin: 0 auto;
+  // padding: 0;
+  // box-sizing: border-box;
+  // max-width: 1440px;
+  // @apply bg-main; 
 }
 
 .main-layout-container {
-  @apply grid grid-cols-4 h-full bg-main;
+  @apply grid grid-cols-4 bg-main;
+  height: calc(100% - $nav_bar_height)
 }
 
 .main-layout-container .main {
   @apply col-span-2;
+}
+
+.main {
+  @apply overflow-scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

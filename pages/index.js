@@ -1,14 +1,11 @@
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { HomeContent } from "@/components/HomeContent";
-import { Register } from "./register";
+import { SideBar } from "@/components/SideBar";
 
 export default function Home() {
   return (
     <>
-      {/* <MainLayout />
-        <HomeContent />
-      <MainLayout /> */}
-      <Register />
+      <MainLayout sidebar={<SideBar />} homeContent={<HomeContent />} />
     </>
   );
 }
