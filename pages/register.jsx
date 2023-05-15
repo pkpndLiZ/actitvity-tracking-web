@@ -5,9 +5,13 @@ export const Register = (props) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (registerData) => {
-    console.log("name: ", registerData.name);
+    console.log("firstName: ", registerData.firstName);
+    console.log("lastName: ", registerData.lastName);
     console.log("birthdate: ", registerData.birthdate);
     console.log("gender: ", registerData.gender);
+    console.log("city: ", registerData.city);
+    console.log("height: ", registerData.height);
+    console.log("weight: ", registerData.weight);
     console.log("email: ", registerData.email);
     console.log("password: ", registerData.password);
     console.log("agreement: ", registerData.agreement);
@@ -18,11 +22,20 @@ export const Register = (props) => {
       <div className="auth-form-container">
         <div className="title">Register</div>
         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="firstName" id="firstName">
+            First Name
+          </label>
           <input
-            {...register("name")}
-            id="name"
-            placeholder="name"
+            {...register("firstName")}
+            id="firstName"
+            placeholder="first name"
+            type="text"
+          />
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            {...register("lastName")}
+            id="lastName"
+            placeholder="last name"
             type="text"
           />
           <label htmlFor="birthdate">Birthdate</label>
@@ -39,6 +52,28 @@ export const Register = (props) => {
             placeholder="gender"
             type="text"
           />
+          <label htmlFor="city">City</label>
+          <input
+            {...register("city")}
+            id="city"
+            placeholder="city"
+            type="text"
+          />
+          <label htmlFor="height">Height</label>
+          <input
+            {...register("height")}
+            id="height"
+            placeholder="height"
+            type="text"
+          />
+          <label htmlFor="weight">Weight</label>
+          <input
+            {...register("weight")}
+            id="weight"
+            placeholder="weight"
+            type="text"
+          />
+
           <label htmlFor="email">Email</label>
           <input
             {...register("email")}
