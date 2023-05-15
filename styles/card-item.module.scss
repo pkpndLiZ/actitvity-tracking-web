@@ -30,6 +30,7 @@
 
         .card-image {
             @apply w-full h-[245px] relative;           
+            // @apply w-full h-auto relative;           
         }
 
         .activity-detail-container {
@@ -63,6 +64,10 @@
                 p {
                     @apply text-[0.85rem] font-semibold;
                 }
+
+                .icon {
+                    @apply w-5 flex items-center justify-center;
+                } 
             }
 
             .activity-tag {

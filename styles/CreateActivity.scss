@@ -1,5 +1,5 @@
 .form-container {
-    @apply text-white mt-2 border border-solid border-white rounded-md;
+    @apply text-white mt-2 rounded-md;
     form {
         @apply flex flex-col items-center gap-4;
         h3 {

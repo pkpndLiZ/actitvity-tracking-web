@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import { mutate } from "swr";
+import { CreateActivity } from "./CreateActivity";
 import {
   faPersonBiking,
   faPersonWalking,
@@ -10,13 +15,46 @@ import {
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "600px",
+  bgcolor: "#1F2021",
+  // border: "2px solid #000",
+  // boxShadow: 24,
+};
+
 export function SideBar() {
   const [activeMenu, setActiveMenu] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [newPost, setNewPost] = useState(true);
 
   const handleMenuClick = (menuName) => {
     setActiveMenu((currentActiveMenu) =>
       menuName === currentActiveMenu ? "" : menuName
     );
+  };
+
+  const handleNewPostClick = (newPostState) => {
+    // setNewPost((currentNewPostState) =>
+    //   newPostState === currentNewPostState ? true : false
+    // );
+
+    if (newPostState === true) {
+      handleModalOpen();
+    } else if (newPostState === false) {
+      handleModalClose();
+    }
+  };
+
+  const handleModalOpen = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -25,7 +63,9 @@ export function SideBar() {
         <h3>Explore</h3>
         <span
           className={`side-menu ${activeMenu === "biking" ? "active" : ""}`}
-          onClick={() => handleMenuClick("biking")}
+          onClick={() => {
+            handleMenuClick("biking");
+          }}
         >
           <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
           <p>Biking</p>
@@ -63,7 +103,9 @@ export function SideBar() {
       <div className="bottom-sidebar-container">
         <span
           className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
-          onClick={() => handleMenuClick("newPost")}
+          onClick={() => {
+            handleNewPostClick(true);
+          }}
         >
           <FontAwesomeIcon icon={faSquarePlus} className="side-menu-icon" />
           <p>New Post</p>
@@ -75,6 +117,18 @@ export function SideBar() {
           <FontAwesomeIcon icon={faCalculator} className="side-menu-icon" />
           <p>BMI Calculator</p>
         </span>
+      </div>
+      <div>
+        <Modal
+          open={modalIsOpen}
+          onClose={handleModalClose}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box sx={{ ...style }}>
+            <CreateActivity onClose={handleModalClose} />
+          </Box>
+        </Modal>
       </div>
     </div>
   );
