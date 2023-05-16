@@ -15,7 +15,7 @@ import {
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
 
-const style = {
+const modalStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -125,7 +125,7 @@ export function SideBar() {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <Box sx={{ ...style }}>
+          <Box sx={{ ...modalStyle }}>
             <CreateActivity onClose={handleModalClose} />
           </Box>
         </Modal>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export const Register = (props) => {
+export default function Register(props) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (registerData) => {
@@ -20,7 +20,7 @@ export const Register = (props) => {
   return (
     <div className="App">
       <div className="auth-form-container">
-        <div className="title">Register</div>
+        <div className="register-title">Register</div>
         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="firstName" id="firstName">
             First Name
@@ -115,4 +115,4 @@ export const Register = (props) => {
       </div>
     </div>
   );
-};
+}
