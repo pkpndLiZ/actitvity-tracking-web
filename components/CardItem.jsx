@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CardMenu from "./CardMenu";
 // import "@/styles/card-item.module.css";
 
 function ImageContent(props) {
@@ -91,14 +92,15 @@ export function CardItem(props) {
           </div>
           <p>{props.username}</p>
         </div>
-        <Image
+        {/* <Image
           id="card-config"
           src="/images/icons/config.svg"
           width={15}
           height={15}
           alt="heart-icon"
           className="bg-red"
-        />
+        /> */}
+        <CardMenu id="card-config" />
       </div>
       {props?.imageUrl ? (
         <ImageContent
