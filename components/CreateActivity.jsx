@@ -13,8 +13,8 @@ export function CreateActivity(props) {
   } = useForm();
 
   const router = useRouter();
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
@@ -24,8 +24,7 @@ export function CreateActivity(props) {
       username: "somngiNGuy",
       userImage: "myImg",
       type: data.activityType,
-      imageUrl:
-        "https://images.unsplash.com/photo-1568736333610-eae6e0ab9206?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
+      imageUrl: imageFile,
       duration: { hr: data.hours, min: data.minutes },
       distance: data.distance,
       date: data.date,
@@ -41,24 +40,28 @@ export function CreateActivity(props) {
         console.log("response: ", response);
         await mutate("/posts");
         props.onClose();
+        setPreviewImage(null);
+        setImageFile(null);
       })
       .catch((error) => {
         setError(error.message);
         console.log("error: " + error.message);
       });
-
-    // console.log(newActivity);
   };
 
-  async function getServerSideProps() {
-    const { data } = await axiosInstance.post("/api/data");
-    return { props: { data } };
-  }
+  // async function getServerSideProps() {
+  //   const { data } = await axiosInstance.post("/api/data");
+  //   return { props: { data } };
+  // }
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    setImage(selectedFile);
-    setImageUrl(URL.createObjectURL(selectedFile));
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      setImageFile(reader.result);
+      setPreviewImage(reader.result);
+    };
   };
 
   return (
@@ -67,10 +70,10 @@ export function CreateActivity(props) {
         <h3>Create Activity</h3>
         <div className="image-container">
           <div>
-            {imageUrl && (
+            {previewImage && (
               <img
                 className="image-preview"
-                src={imageUrl}
+                src={previewImage}
                 alt="Selected file"
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
               />
@@ -171,24 +174,6 @@ export function CreateActivity(props) {
           />
           {errors.description && <span>This field is required</span>}
         </div>
-
-        {/* {error && (
-          <div
-            class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
-            role="alert"
-          >
-            An error occurred: {error}
-          </div>
-        )}
-        {success && (
-          <div
-            class="mb-4 rounded-lg bg-success-100 px-6 py-5 text-base text-success-700"
-            role="alert"
-          >
-            success
-          </div>
-        )} */}
-
         <div>
           <button
             className="submit-button"

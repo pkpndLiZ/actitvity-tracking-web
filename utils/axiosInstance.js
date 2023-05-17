@@ -7,5 +7,9 @@ export const axiosInstance = axios.create({
 });
 
 export async function fetch(path) {
-  return await axiosInstance.get(path).then((response) => response.data);
+  try {
+    return await axiosInstance.get(path).then((response) => response.data);
+  } catch (error) {
+    console.error(error);
+  }
 }

@@ -51,7 +51,7 @@
         .description-container {
             @apply flex flex-col gap-1 w-2/4;
             #activity-description {
-                @apply rounded-lg pl-1 h-40 text-xl w-full text-black;
+                @apply rounded-lg pl-1 h-[76px] text-xl w-full text-black;
             }
         }
         .submit-button {

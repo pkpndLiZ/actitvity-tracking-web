@@ -3,6 +3,7 @@ import { CardItemList } from "@/src/fixture/card-item-mock";
 import { fetch } from "../utils/axiosInstance";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
+import UserProfile from "@/pages/profile";
 
 export function HomeContent() {
   const [success, setSuccess] = useState(false);
@@ -21,6 +22,7 @@ export function HomeContent() {
       {posts.map((item, index) => {
         return (
           <CardItem
+            item={item}
             key={index}
             username={item.username}
             // userImage={item.userImage}
