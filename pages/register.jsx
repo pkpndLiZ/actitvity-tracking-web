@@ -59,14 +59,14 @@ export const Register = (props) => {
             placeholder="city"
             type="text"
           />
-          <label htmlFor="height">Height</label>
+          <label htmlFor="height">Height (cm)</label>
           <input
             {...register("height")}
             id="height"
             placeholder="height"
             type="text"
           />
-          <label htmlFor="weight">Weight</label>
+          <label htmlFor="weight">Weight (kg)</label>
           <input
             {...register("weight")}
             id="weight"
