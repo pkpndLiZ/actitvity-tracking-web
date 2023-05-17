@@ -100,7 +100,7 @@ export function CardItem(props) {
           alt="heart-icon"
           className="bg-red"
         /> */}
-        <CardMenu id="card-config" />
+        <CardMenu item={props.item} id="card-config" />
       </div>
       {props?.imageUrl ? (
         <ImageContent
