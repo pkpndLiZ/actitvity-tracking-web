@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-export function EditActivity() {
+export function EditActivity(props) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = useForm();
@@ -26,6 +27,20 @@ export function EditActivity() {
     console.log(newActivity);
     reset();
   };
+
+  useEffect(() => {
+    if (props.item) {
+      setValue("title", props.item.title);
+      setValue("activityType", props.item.type);
+      setValue("date", props.item.date);
+      setValue("hours", props.item.duration.hr);
+      setValue("minutes", props.item.duration.min);
+      setValue("distance", props.item.distance);
+      setValue("description", props.item.description);
+      console.log(props.item);
+    }
+    // setValue("date".props.item.date);
+  }, [props.item]);
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];

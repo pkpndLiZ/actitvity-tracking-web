@@ -8,7 +8,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 
-export default function CardMenu() {
+export default function CardMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editModalIsOpen, setEditModalIsOpen] = React.useState(false);
   const open = Boolean(anchorEl);
@@ -72,7 +72,7 @@ export default function CardMenu() {
         aria-describedby="edit-modal-description"
       >
         <Box sx={{ ...modalStyle }}>
-          <EditActivity onClose={handleEditModalClose} />
+          <EditActivity item={props.item} onClose={handleEditModalClose} />
         </Box>
       </Modal>
     </div>
