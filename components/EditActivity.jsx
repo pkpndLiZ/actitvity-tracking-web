@@ -37,7 +37,7 @@ export function EditActivity(props) {
       setValue("minutes", props.item.duration.min);
       setValue("distance", props.item.distance);
       setValue("description", props.item.description);
-      console.log(props.item);
+      setImageUrl(props.item.imageUrl);
     }
     // setValue("date".props.item.date);
   }, [props.item]);
