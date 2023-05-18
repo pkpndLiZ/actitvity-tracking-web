@@ -34,11 +34,11 @@ export function CreateActivity(props) {
 
     console.log(newActivity);
     axiosInstance
-      .post("/posts", newActivity)
+      .post("api/posts", newActivity)
       .then(async (response) => {
         setSuccess(true);
         console.log("response: ", response);
-        await mutate("/posts");
+        await mutate("api/posts");
         props.onClose();
         setPreviewImage(null);
         setImageFile(null);
