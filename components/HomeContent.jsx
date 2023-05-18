@@ -8,7 +8,7 @@ import UserProfile from "@/pages/profile";
 export function HomeContent() {
   const [success, setSuccess] = useState(false);
 
-  const { data: posts, error } = useSWR("/posts", fetch);
+  const { data: posts, error } = useSWR("api/posts", fetch);
   if (error) {
     return <div>Error loading activities: {error}</div>;
   }

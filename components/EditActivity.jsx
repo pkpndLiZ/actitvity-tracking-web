@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { axiosInstance } from "../utils/axiosInstance";
+import { mutate } from "swr";
 
 export function EditActivity(props) {
   const {
@@ -10,22 +12,51 @@ export function EditActivity(props) {
     reset,
   } = useForm();
 
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
-  const onSubmit = (data) => {
-    const newActivity = {
-      imageUrl: imageUrl,
-      title: data.title,
+  const onSubmit = async (data) => {
+    let newActivity = {
+      userId: "1123455667",
+      username: "somngiNGuy",
+      userImage: "myImg",
       type: data.activityType,
+      duration: { hr: data.hours, min: data.minutes },
+      distance: data.distance,
       date: data.date,
+      title: data.title,
       description: data.description,
-      duration: { hour: `${data.hours} hr`, minute: `${data.minutes} minute` },
-      distance: `${data.distance}km`,
     };
 
+    if (imageFile) {
+      newActivity = {
+        ...newActivity,
+        imageUrl: imageFile,
+      };
+    } else if (props.item.imageUrl) {
+      newActivity = {
+        ...newActivity,
+        imageUrl: props.item.imageUrl,
+      };
+    }
+
     console.log(newActivity);
-    reset();
+    axiosInstance
+      .put(`api/posts/${props.item._id}`, newActivity)
+      .then(async (response) => {
+        setSuccess(true);
+        console.log("response: ", response);
+        await mutate("api/posts");
+        props.onClose();
+        setPreviewImage(imageFile || props.item.imageUrl);
+        setImageFile(null);
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log("error: " + error.message);
+      });
   };
 
   useEffect(() => {
@@ -37,27 +68,32 @@ export function EditActivity(props) {
       setValue("minutes", props.item.duration.min);
       setValue("distance", props.item.distance);
       setValue("description", props.item.description);
-      console.log(props.item);
+
+      if (!imageFile) {
+        setPreviewImage(props.item.imageUrl);
+      }
     }
-    // setValue("date".props.item.date);
-  }, [props.item]);
+  }, [props.item, imageFile]);
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    setImage(selectedFile);
-    setImageUrl(URL.createObjectURL(selectedFile));
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      setImageFile(reader.result);
+      setPreviewImage(reader.result); // Set the preview image to the selected image
+    };
   };
-
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Edit Activity</h3>
         <div className="image-container">
           <div>
-            {imageUrl && (
+            {(previewImage || props.item.imageUrl) && (
               <img
                 className="image-preview"
-                src={imageUrl}
+                src={previewImage || props.item.imageUrl}
                 alt="Selected file"
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
               />
