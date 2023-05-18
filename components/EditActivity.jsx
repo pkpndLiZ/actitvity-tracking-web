@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../utils/axiosInstance";
 import { mutate } from "swr";
+import { RxCross2 } from "react-icons/rx";
 
 export function EditActivity(props) {
   const {
@@ -12,6 +13,7 @@ export function EditActivity(props) {
     reset,
   } = useForm();
 
+  const [showImagePreview, setShowImagePreview] = useState(true);
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [error, setError] = useState(null);
@@ -38,7 +40,7 @@ export function EditActivity(props) {
     } else if (props.item.imageUrl) {
       newActivity = {
         ...newActivity,
-        imageUrl: props.item.imageUrl,
+        imageUrl: null,
       };
     }
 
@@ -81,22 +83,41 @@ export function EditActivity(props) {
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
       setImageFile(reader.result);
-      setPreviewImage(reader.result); // Set the preview image to the selected image
+      setPreviewImage(reader.result);
     };
   };
+
+  const handleDeleteImage = (event) => {
+    event.preventDefault();
+    setPreviewImage(null);
+    setImageFile(null);
+    setShowImagePreview(false);
+  };
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Edit Activity</h3>
         <div className="image-container">
           <div>
-            {(previewImage || props.item.imageUrl) && (
-              <img
-                className="image-preview"
-                src={previewImage || props.item.imageUrl}
-                alt="Selected file"
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
+            {showImagePreview && (previewImage || props.item.imageUrl) && (
+              <div className="relative">
+                <img
+                  className="image-preview"
+                  src={previewImage || props.item.imageUrl}
+                  alt="Selected file"
+                  style={{ maxWidth: "100%", maxHeight: "100%" }}
+                />
+                <div className="w-[35px] h-[35px] top-1 right-1 absolute">
+                  <button
+                    onClick={handleDeleteImage}
+                    type="button"
+                    className="flex items-center justify-center rounded-full w-full h-full bg-red-500 text-white"
+                  >
+                    <RxCross2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
             )}
           </div>
           <label htmlFor="image">Choose an image:</label>
