@@ -1,20 +1,47 @@
+import { app } from "@/src/firebase";
+import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 
 export default function Register(props) {
   const { register, handleSubmit } = useForm();
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const onSubmit = (registerData) => {
-    console.log("firstName: ", registerData.firstName);
-    console.log("lastName: ", registerData.lastName);
-    console.log("birthdate: ", registerData.birthdate);
-    console.log("gender: ", registerData.gender);
-    console.log("city: ", registerData.city);
-    console.log("height: ", registerData.height);
-    console.log("weight: ", registerData.weight);
-    console.log("email: ", registerData.email);
-    console.log("password: ", registerData.password);
-    console.log("agreement: ", registerData.agreement);
+    const user = {
+      email: registerData.email,
+      firstName: registerData.firstName,
+      lastName: registerData.lastName,
+      birthDate: registerData.birthDate,
+      gender: registerData.gender,
+      city: registerData.city,
+      height: registerData.height,
+      weight: registerData.weight,
+      profileName: registerData.profileName,
+      profileImage: registerData.profileImage,
+    };
+    // console.log("agreement: ", registerData.agreement);
+
+    createUserWithEmailAndPassword(
+      getAuth(app),
+      registerData.email,
+      registerData.password
+    )
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        enqueueSnackbar("Register success.", { variant: "success" });
+        router.push("/login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        enqueueSnackbar(errorMessage, { variant: "error" });
+      });
   };
 
   return (

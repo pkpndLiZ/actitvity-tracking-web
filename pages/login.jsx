@@ -1,12 +1,44 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { app } from "@/src/firebase";
+import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
+import {
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "@firebase/auth";
 
 export default function Login(props) {
   const { register, handleSubmit } = useForm();
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const onSubmit = (loginData) => {
     console.log("email: ", loginData.email);
     console.log("password: ", loginData.password);
+
+    setPersistence(getAuth(app), browserSessionPersistence);
+    signInWithEmailAndPassword(
+      getAuth(app),
+      loginData.email,
+      loginData.password
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        enqueueSnackbar("Login success.", { variant: "success" });
+        sessionStorage.setItem("token", user.accessToken);
+        router.push("/");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        enqueueSnackbar(errorMessage, { variant: "error" });
+      });
   };
 
   return (
