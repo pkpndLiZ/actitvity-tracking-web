@@ -20,6 +20,9 @@ export function HomeContent() {
   return (
     <div className="pl-[1rem] pt-[1rem] gap-1 columns-1 md:columns-2 xl:columns-3 2xl:columns-3 space-y-4 w-full h-fit">
       {posts.map((item, index) => {
+        if (item.post_status === false) {
+          return null;
+        }
         return (
           <CardItem
             item={item}

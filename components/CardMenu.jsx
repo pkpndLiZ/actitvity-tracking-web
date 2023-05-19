@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,10 +8,14 @@ import { EditActivity } from "./EditActivity";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import { axiosInstance } from "../utils/axiosInstance";
+import { mutate } from "swr";
 
 export default function CardMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editModalIsOpen, setEditModalIsOpen] = React.useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleEditClick = () => {
@@ -40,6 +45,22 @@ export default function CardMenu(props) {
     setAnchorEl(null);
   };
 
+  const handleDeleteClick = async () => {
+    axiosInstance
+      .delete(`api/posts/${props.item._id}`)
+      .then(async (response) => {
+        setSuccess(true);
+        console.log("response: ", response);
+        await mutate("api/posts");
+        // console.log(props.item.post_status);
+        // props.onClose();
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log("error: " + error.message);
+      });
+  };
+
   return (
     <div style={{ width: "30px" }}>
       <IconButton
@@ -62,7 +83,7 @@ export default function CardMenu(props) {
         }}
       >
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Report</MenuItem>
       </Menu>
       <Modal
