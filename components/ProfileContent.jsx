@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { CardItem } from "@/components/CardItem";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { SideBar } from "@/components/SideBar";
+import CardItemList from "../src/fixture/card-item-mock";
 
 export default function profile() {
   const [name, setName] = useState("John doe");
@@ -16,7 +17,7 @@ export default function profile() {
   const [dob, setDob] = useState("24/06/1998");
   const [city, setCity] = useState("John doe");
 
-  const { data: posts, error } = useSWR("/posts", fetch);
+  const { data: posts, error } = useSWR("api/posts", fetch);
   if (error) {
     return <div>Error loading activities: {error}</div>;
   }
@@ -102,6 +103,22 @@ export default function profile() {
                       />
                     );
                   })}
+                  {/* {CardItemList.map((item, index) => {
+                    return (
+                      <CardItem
+                        key={index}
+                        username={item.profileName}
+                        // userImage={item.userImage}
+                        imageUrl={item.imageUrl}
+                        // type={item.type}
+                        duration={item.duration}
+                        distance={item.distance}
+                        date={item.date}
+                        title={item.title}
+                        description={item.description}
+                      />
+                    );
+                  })} */}
                 </div>
               </div>
             </div>
