@@ -29,7 +29,8 @@ export default function Login(props) {
         // Signed in
         const user = userCredential.user;
         enqueueSnackbar("Login success.", { variant: "success" });
-        sessionStorage.setItem("token", user.accessToken);
+        localStorage.setItem("token", user.accessToken);
+        localStorage.setItem("userId", user.uid);
         router.push("/");
         console.log(user);
       })
