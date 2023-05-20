@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 
 export default function Register(props) {

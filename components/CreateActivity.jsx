@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 
 export function CreateActivity(props) {

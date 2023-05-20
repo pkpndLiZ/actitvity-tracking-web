@@ -1,6 +1,6 @@
 import { CardItem } from "@/components/CardItem";
 import { CardItemList } from "@/src/fixture/card-item-mock";
-import { fetch } from "../utils/axiosInstance";
+import { fetch } from "../src/axiosInstance";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import UserProfile from "@/pages/profile";

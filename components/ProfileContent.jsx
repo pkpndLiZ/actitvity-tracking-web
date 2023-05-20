@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetch } from "../utils/axiosInstance";
+import { fetch } from "../src/axiosInstance";
 import useSWR from "swr";
 import { CardItem } from "@/components/CardItem";
 
