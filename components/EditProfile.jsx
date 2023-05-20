@@ -49,13 +49,18 @@ export default function EditProfile() {
               )}
             </div>
             <label className="text-xl py-4">Choose an image</label>
-            <input id="imageUpload" type="file" onChange={handleImageChange} />
+            <input
+              id="imageUpload"
+              type="file"
+              onChange={handleImageChange}
+              lang="en"
+            />
           </div>
           <div className="flex items-center py-2">
             <p className=" w-3/12 py-3 text-xl font-semibold">Display Name :</p>
             <input
               className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
-              placeholder="Display Name"
+              placeholder="e.g. johndoe123"
               type="text"
               {...register("username", { required: true })}
             />
@@ -65,7 +70,7 @@ export default function EditProfile() {
               <p className="w-6/12 py-3 text-xl font-semibold">First Name :</p>
               <input
                 className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-lg shadow-black"
-                placeholder="First Name"
+                placeholder="e.g. John"
                 type="text"
                 {...register("firstName", {
                   required: true,
@@ -77,7 +82,7 @@ export default function EditProfile() {
               <p className="w-6/12 py-3 text-xl font-semibold">Last Name :</p>
               <input
                 className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
-                placeholder="Last Name"
+                placeholder="e.g. Doe"
                 type="text"
                 {...register("lastName", {
                   required: true,
@@ -94,6 +99,7 @@ export default function EditProfile() {
                 placeholder="Birth Date"
                 type="date"
                 {...register("birthDate", { required: true })}
+                lang="en"
               />
             </div>
             <div className="flex w-full items-center">
@@ -112,7 +118,7 @@ export default function EditProfile() {
             <p className=" w-1/12 py-3 text-xl font-semibold">City :</p>
             <input
               className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
-              placeholder="City"
+              placeholder="e.g. Bangkok"
               type="text"
               {...register("city", { required: true })}
             />
@@ -122,7 +128,7 @@ export default function EditProfile() {
               <p className="w-4/12 py-3 text-xl font-semibold">Weight :</p>
               <input
                 className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
-                placeholder="Weight"
+                placeholder="e.g. 70"
                 type="number"
                 {...register("weight", { required: true })}
               />
@@ -131,20 +137,22 @@ export default function EditProfile() {
               <p className="w-4/12 py-3 text-xl font-semibold">Height :</p>
               <input
                 className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
-                placeholder="Height"
+                placeholder="e.g. 170"
                 type="number"
                 {...register("height", { required: true })}
               />
             </div>
           </div>
         </form>
-        <button
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-          className=" text-lg font-semibold text-black border border-green-900 flex w-[100px] my-8 py-2 bg-green-600 items-center rounded-md hover:bg-black hover:text-green-500 shadow-lg shadow-black"
-        >
-          <FaRegSave className="ml-2 mr-2" /> Save
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            className=" text-lg font-semibold text-black border border-green-900 flex w-[100px] my-8 py-2 bg-green-600 items-center rounded-md hover:bg-black hover:text-green-500 shadow-lg shadow-black"
+          >
+            <FaRegSave className="ml-2 mr-2" /> Save
+          </button>
+        </div>
       </div>
     </div>
   );
