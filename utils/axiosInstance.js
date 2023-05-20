@@ -7,14 +7,16 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
-  console.log("token: " + token);
   config.headers.authorization = `Bearer ${token}`;
   return config;
 });
 
 export async function fetch(path) {
   try {
-    return await axiosInstance.get(path).then((response) => response.data);
+    return await axiosInstance.get(path).then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
   } catch (error) {
     console.error(error);
   }

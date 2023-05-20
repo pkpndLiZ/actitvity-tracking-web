@@ -16,9 +16,6 @@ export default function Login(props) {
   const router = useRouter();
 
   const onSubmit = (loginData) => {
-    console.log("email: ", loginData.email);
-    console.log("password: ", loginData.password);
-
     setPersistence(getAuth(app), browserSessionPersistence);
     signInWithEmailAndPassword(
       getAuth(app),
@@ -31,6 +28,7 @@ export default function Login(props) {
         enqueueSnackbar("Login success.", { variant: "success" });
         localStorage.setItem("token", user.accessToken);
         localStorage.setItem("userId", user.uid);
+
         router.push("/");
         console.log(user);
       })

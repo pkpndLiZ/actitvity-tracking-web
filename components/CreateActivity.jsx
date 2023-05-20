@@ -18,9 +18,11 @@ export function CreateActivity(props) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
+  const userId = localStorage.getItem("userId");
+
   const onSubmit = (data) => {
     const newActivity = {
-      userId: "1123455667",
+      userId: userId,
       username: "somngiNGuy",
       userImage: "myImg",
       type: data.activityType,
