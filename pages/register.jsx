@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import Link from "next/link";
 
 export default function Register(props) {
   const {
@@ -17,15 +18,7 @@ export default function Register(props) {
   const onSubmit = (registerData) => {
     const user = {
       email: registerData.email,
-      firstName: registerData.firstName,
-      lastName: registerData.lastName,
-      birthDate: registerData.birthDate,
-      gender: registerData.gender,
-      city: registerData.city,
-      height: registerData.height,
-      weight: registerData.weight,
-      profileName: registerData.profileName,
-      profileImage: registerData.profileImage,
+      password: registerData.password,
     };
 
     createUserWithEmailAndPassword(
@@ -79,9 +72,15 @@ export default function Register(props) {
             Submit
           </button>
         </form>
-        <button className="link-btn">
-          Already have an account? Login here.
-        </button>
+        <div className="flex gap-4 justify-center">
+          <p className="text-purple-400">Already have an account?</p>
+          <Link
+            className="text-white hover:text-purple-700 duration-500"
+            href="/login"
+          >
+            Login here.
+          </Link>
+        </div>
       </div>
     </div>
   );
