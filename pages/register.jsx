@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
+import { axiosInstance } from "../utils/axiosInstance";
+import { mutate } from "swr";
 
 export default function Register(props) {
   const {
@@ -14,30 +16,44 @@ export default function Register(props) {
   } = useForm();
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
-  const onSubmit = (registerData) => {
-    const user = {
-      email: registerData.email,
-      password: registerData.password,
-    };
+  const onSubmit = async (registerData) => {
+    try {
+      const { email, password } = registerData;
 
-    createUserWithEmailAndPassword(
-      getAuth(app),
-      registerData.email,
-      registerData.password
-    )
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        enqueueSnackbar("Register success.", { variant: "success" });
-        router.push("/login");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        enqueueSnackbar(errorMessage, { variant: "error" });
-      });
+      const userCredential = await createUserWithEmailAndPassword(
+        getAuth(app),
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+      const { uid } = user;
+
+      console.log(user);
+      localStorage.setItem("token", user.accessToken);
+      localStorage.setItem("userId", user.uid);
+      enqueueSnackbar("Register success.", { variant: "success" });
+      router.push("/login");
+
+      const userInfo = {
+        userId: uid,
+        email: email,
+        username: uid,
+      };
+
+      await axiosInstance.post("api/users/", userInfo);
+
+      setSuccess(true);
+      console.log(userInfo);
+      await mutate("api/users/");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   };
 
   return (
