@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -10,17 +9,48 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
+import { app } from "../src/firebase.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 
 export default function CardMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editModalIsOpen, setEditModalIsOpen] = React.useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+  const auth = getAuth(app);
+  const { enqueueSnackbar } = useSnackbar();
   const open = Boolean(anchorEl);
 
+  useEffect(() => {
+    // Check user's login status initially
+    const initialUser = auth.currentUser;
+    setIsLoggedIn(!!initialUser); // Set isLoggedIn based on the initial user
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    // Clean up the subscription when component unmounts
+    return () => unsubscribe();
+  }, []);
+
   const handleEditClick = () => {
-    setEditModalIsOpen(true);
-    handleClose();
+    if (!isLoggedIn) {
+      router.push("/login");
+    } else if (props.item.userId !== auth.currentUser.uid) {
+      enqueueSnackbar("You can't edit this card.", { variant: "error" });
+    } else {
+      setEditModalIsOpen(true);
+      handleClose();
+    }
   };
 
   const handleEditModalClose = () => {
@@ -46,19 +76,20 @@ export default function CardMenu(props) {
   };
 
   const handleDeleteClick = async () => {
-    axiosInstance
-      .delete(`api/posts/${props.item._id}`)
-      .then(async (response) => {
+    if (!isLoggedIn) {
+      router.push("/login");
+    } else if (props.item.userId !== auth.currentUser.uid) {
+      enqueueSnackbar("You can't delete this card.", { variant: "error" });
+    } else {
+      try {
+        await axiosInstance.delete(`api/posts/${props.item._id}`);
         setSuccess(true);
-        console.log("response: ", response);
         await mutate("api/posts");
-        // console.log(props.item.post_status);
-        // props.onClose();
-      })
-      .catch((error) => {
+      } catch (error) {
         setError(error.message);
         console.log("error: " + error.message);
-      });
+      }
+    }
   };
 
   return (
