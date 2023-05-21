@@ -35,7 +35,6 @@ export function NavBar({ userData }) {
       await signOut(auth);
       setIsLoggedIn(false);
       router.push("/");
-      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
