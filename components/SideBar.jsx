@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import { mutate } from "swr";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "../src/firebase.js";
+import { useRouter } from "next/router";
 import { CreateActivity } from "./CreateActivity";
+import { useSnackbar } from "notistack";
 import {
   faPersonBiking,
   faPersonWalking,
@@ -30,6 +32,27 @@ export function SideBar() {
   const [activeMenu, setActiveMenu] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [newPost, setNewPost] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    // Check user's login status initially
+    const auth = getAuth(app);
+    const initialUser = auth.currentUser;
+    setIsLoggedIn(!!initialUser); // Set isLoggedIn based on the initial user
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    // Clean up the subscription when component unmounts
+    return () => unsubscribe();
+  }, []);
 
   const handleMenuClick = (menuName) => {
     setActiveMenu((currentActiveMenu) =>
@@ -50,7 +73,15 @@ export function SideBar() {
   };
 
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    if (isLoggedIn === true) {
+      setModalIsOpen(true);
+    } else if (isLoggedIn === false) {
+      setModalIsOpen(false);
+      router.push("/login");
+      enqueueSnackbar(`You're still not login please login first`, {
+        variant: "warning",
+      });
+    }
   };
 
   const handleModalClose = () => {
