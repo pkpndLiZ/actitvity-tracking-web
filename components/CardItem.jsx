@@ -1,5 +1,8 @@
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import CardMenu from "./CardMenu";
+import { app } from "../src/firebase.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 // import "@/styles/card-item.module.css";
 
 function ImageContent(props) {
@@ -77,6 +80,24 @@ function ActivityDetail(props) {
 }
 
 export function CardItem(props) {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [same, setSame] = useState(false);
+  const auth = getAuth(app);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        setSame(props.item.userId === user.uid);
+      } else {
+        setCurrentUser(null);
+        setSame(false);
+      }
+    });
+    return () => unsubscribe();
+  }, [props.item.userId, auth.currentUser]);
+
   return (
     <div className="card-item">
       <div className="card-header">
@@ -92,15 +113,7 @@ export function CardItem(props) {
           </div>
           <p>{props.username}</p>
         </div>
-        {/* <Image
-          id="card-config"
-          src="/images/icons/config.svg"
-          width={15}
-          height={15}
-          alt="heart-icon"
-          className="bg-red"
-        /> */}
-        <CardMenu item={props.item} id="card-config" />
+        {same ? <CardMenu item={props.item} /> : null}
       </div>
       {props?.imageUrl ? (
         <ImageContent
@@ -117,7 +130,6 @@ export function CardItem(props) {
           type={props.type}
         />
       )}
-
       <div className="post-content">
         <p className="date">{props.date}</p>
         <p className="title">{props.title}</p>
