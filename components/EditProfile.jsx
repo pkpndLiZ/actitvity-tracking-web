@@ -4,8 +4,9 @@ import { FaRegSave } from "react-icons/fa";
 import { axiosInstance } from "../src/axiosInstance";
 import { getAuth } from "@firebase/auth";
 import { app } from "../src/firebase";
+import { mutate } from "swr";
 
-export function EditProfile() {
+export function EditProfile(props) {
   const { register, handleSubmit } = useForm();
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
