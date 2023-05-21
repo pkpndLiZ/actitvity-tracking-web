@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 
 export default function Register(props) {
@@ -35,7 +35,6 @@ export default function Register(props) {
       console.log(user);
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("userId", user.uid);
-      enqueueSnackbar("Register success.", { variant: "success" });
       router.push("/login");
 
       const userInfo = {
@@ -44,15 +43,22 @@ export default function Register(props) {
         username: uid,
       };
 
-      await axiosInstance.post("api/users/", userInfo);
-
-      setSuccess(true);
-      console.log(userInfo);
-      await mutate("api/users/");
+      axiosInstance
+        .post("api/users", userInfo)
+        .then(async (response) => {
+          setSuccess(true);
+          console.log("response: ", response);
+          enqueueSnackbar("Register success.", { variant: "success" });
+        })
+        .catch((error) => {
+          console.log("error: " + error.message);
+        });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      setError(true);
       console.log(errorCode, errorMessage);
+      enqueueSnackbar(`Register failed: ${errorMessage}`, { variant: "error" });
     }
   };
 

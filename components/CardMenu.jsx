@@ -8,7 +8,7 @@ import { EditActivity } from "./EditActivity";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 
 export default function CardMenu(props) {

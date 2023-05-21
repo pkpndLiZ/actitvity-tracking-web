@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { fetch } from "../utils/axiosInstance";
+import { fetch } from "../src/axiosInstance";
 import useSWR from "swr";
 import { CardItem } from "@/components/CardItem";
-import { MainLayout } from "@/components/layouts/MainLayout";
-import { SideBar } from "@/components/SideBar";
-import CardItemList from "../src/fixture/card-item-mock";
 
 export default function profile() {
   const [name, setName] = useState("John doe");

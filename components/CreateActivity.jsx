@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 
 export function CreateActivity(props) {
@@ -18,9 +18,11 @@ export function CreateActivity(props) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
+  const userId = localStorage.getItem("userId");
+
   const onSubmit = (data) => {
     const newActivity = {
-      userId: "1123455667",
+      userId: userId,
       username: "somngiNGuy",
       userImage: "myImg",
       type: data.activityType,
