@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { fetch } from "../src/axiosInstance";
 import useSWR from "swr";
 import { CardItem } from "@/components/CardItem";
+import { FiEdit } from "react-icons/fi";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { EditProfile } from "./EditProfile";
 
 export default function profile() {
   const [name, setName] = useState("John doe");
@@ -13,6 +17,33 @@ export default function profile() {
   const [gender, setGender] = useState("John doe");
   const [dob, setDob] = useState("24/06/1998");
   const [city, setCity] = useState("John doe");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "900px",
+    bgcolor: "#1F2021",
+    // border: "2px solid #000",
+    // boxShadow: 24,
+  };
+
+  // const handleEditProfileClick = (EditProfileState) => {
+  //   if (EditProfileState === true) {
+  //     handleModalOpen();
+  //   } else if (EditProfileState === false) {
+  //     handleModalClose();
+  //   }
+  // };
+
+  const handleModalOpen = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalIsOpen(false);
+  };
 
   const { data: posts, error } = useSWR("api/posts", fetch);
   if (error) {
@@ -26,7 +57,17 @@ export default function profile() {
   return (
     <div>
       <div>
-        <h1 className="text-3xl text-white py-8">Profile</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl text-white py-8">Profile</h1>
+
+          <button
+            onClick={handleModalOpen}
+            className=" text-purple-400 flex items-center border border-purple-400 rounded-md p-1 hover:text-gray-800 hover:border-gray-800 hover:bg-purple-400 duration-500"
+          >
+            <FiEdit size={30} />
+            <p className="text-md pl-[6px]">Edit Profile</p>
+          </button>
+        </div>
         <div className="profile-section-container text-white py-4 border rounded-xl shadow-md h-full bg-black-800 px-2 max-w-[1140px] w-full mx-auto">
           <div className="profile-top-section h-1/2">
             <div className="top-section-container flex h-full ">
@@ -121,6 +162,18 @@ export default function profile() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <Modal
+          open={modalIsOpen}
+          onClose={handleModalClose}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box sx={{ ...modalStyle }}>
+            <EditProfile onClose={handleModalClose} />
+          </Box>
+        </Modal>
       </div>
     </div>
   );
