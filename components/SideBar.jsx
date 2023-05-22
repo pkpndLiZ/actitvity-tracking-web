@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app } from "../src/firebase.js";
-import { useRouter } from "next/router";
+import { axiosInstance } from "../src/axiosInstance";
+import { mutate } from "swr";
+import Button from "@mui/material/Button";
 import { CreateActivity } from "./CreateActivity";
-import { useSnackbar } from "notistack";
+
 import {
   faPersonBiking,
   faPersonWalking,
@@ -32,32 +32,25 @@ export function SideBar() {
   const [activeMenu, setActiveMenu] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [newPost, setNewPost] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // Check user's login status initially
-    const auth = getAuth(app);
-    const initialUser = auth.currentUser;
-    setIsLoggedIn(!!initialUser); // Set isLoggedIn based on the initial user
+    console.log(activeMenu);
+  }, [activeMenu]);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-
-    // Clean up the subscription when component unmounts
-    return () => unsubscribe();
-  }, []);
-
-  const handleMenuClick = (menuName) => {
-    setActiveMenu((currentActiveMenu) =>
-      menuName === currentActiveMenu ? "" : menuName
-    );
+  const handleMenuClick = async (menuName) => {
+    setActiveMenu(menuName);
+    axiosInstance
+      .get(`api/posts?activity=${menuName}`)
+      .then(async (response) => {
+        console.log("response:", response);
+        await mutate(`api/posts?activity=${menuName}`);
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log("error:", error.message);
+      });
   };
 
   const handleNewPostClick = (newPostState) => {
@@ -73,15 +66,7 @@ export function SideBar() {
   };
 
   const handleModalOpen = () => {
-    if (isLoggedIn === true) {
-      setModalIsOpen(true);
-    } else if (isLoggedIn === false) {
-      setModalIsOpen(false);
-      router.push("/login");
-      enqueueSnackbar(`You're still not login please login first`, {
-        variant: "warning",
-      });
-    }
+    setModalIsOpen(true);
   };
 
   const handleModalClose = () => {
