@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
+import { UserContext } from "@/src/userContext";
 import Image from "next/image";
 
 export function CreateActivity(props) {
@@ -12,7 +13,7 @@ export function CreateActivity(props) {
     formState: { errors },
     reset,
   } = useForm();
-
+  const { userData, updateU } = useContext(UserContext);
   const router = useRouter();
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -20,13 +21,11 @@ export function CreateActivity(props) {
   const [success, setSuccess] = useState(false);
   const [imageSizeError, setImageSizeError] = useState(false);
 
-  const userId = localStorage.getItem("userId");
-
   const onSubmit = (data) => {
     const newActivity = {
-      userId: userId,
-      username: "somngiNGuy",
-      userImage: "myImg",
+      userId: userData.userId,
+      username: userData?.username,
+      userImage: userData?.userImage,
       type: data.activityType,
       imageUrl: imageFile,
       duration: { hr: data.hours, min: data.minutes },

@@ -1,7 +1,7 @@
 import { app } from "@/src/firebase";
 import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useContext, useState } from "react";
+import { useController, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { axiosInstance } from "../src/axiosInstance";
 import registerImg from "../public/images/registerImg.png";
 import Image from "next/image";
 import { mutate } from "swr";
+import { UserContext } from "@/src/userContext";
 
 export default function Register(props) {
   const {
@@ -16,6 +17,7 @@ export default function Register(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { updateUser } = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [error, setError] = useState(null);
@@ -35,22 +37,24 @@ export default function Register(props) {
       const { uid } = user;
 
       console.log(user);
-      localStorage.setItem("token", user.accessToken);
-      localStorage.setItem("userId", user.uid);
-      router.push("/login");
 
       const userInfo = {
         userId: uid,
         email: email,
-        username: uid,
+        username: uid.slice(0, 4),
       };
 
       axiosInstance
-        .post("api/users", userInfo)
+        .post("api/users", userInfo, {
+          headers: {
+            Authorization: "Bearer " + user.accessToken,
+          },
+        })
         .then(async (response) => {
           setSuccess(true);
           console.log("response: ", response);
           enqueueSnackbar("Register success.", { variant: "success" });
+          router.push("/login");
         })
         .catch((error) => {
           console.log("error: " + error.message);

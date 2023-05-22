@@ -9,6 +9,7 @@ export function HomeContent() {
   const [success, setSuccess] = useState(false);
 
   const { data: posts, error } = useSWR("api/posts", fetch);
+
   if (error) {
     return <div>Error loading activities: {error}</div>;
   }
