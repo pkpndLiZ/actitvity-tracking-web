@@ -74,7 +74,7 @@ export default function Profile() {
             <div className="top-section-container flex h-full ">
               <div className="top-left-section w-2/6 flex flex-col py-4 items-center justify-center border-r border-gray-700">
                 <div className="left-img-container relative h-[180px] w-[180px] overflow-hidden">
-                  <Image
+                  <img
                     src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80"
                     className="absolute h-full w-full  rounded-full"
                     alt=""
