@@ -128,6 +128,7 @@ export default function profile() {
                   {posts.map((item, index) => {
                     return (
                       <CardItem
+                        item={item}
                         key={index}
                         username={item.username}
                         // userImage={item.userImage}
