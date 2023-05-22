@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -40,7 +41,7 @@ export function ActivityForm() {
         <div className="image-container">
           <div>
             {imageUrl && (
-              <img
+              <Image
                 className="image-preview"
                 src={imageUrl}
                 alt="Selected file"

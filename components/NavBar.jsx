@@ -43,14 +43,14 @@ export function NavBar({ userData }) {
   const renderProfileIcon = () => {
     if (userData && userData.userImage) {
       return (
-        <img
+        <Image
           src={userData.userImage}
           alt="User Profile"
           className="profile-image"
         />
       );
     } else {
-      return <Image src={defaultImg} />;
+      return <Image src={defaultImg} alt="default image" />;
     }
   };
 

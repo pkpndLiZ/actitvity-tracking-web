@@ -5,6 +5,7 @@ import { axiosInstance } from "../src/axiosInstance";
 import { getAuth } from "@firebase/auth";
 import { app } from "../src/firebase";
 import { mutate } from "swr";
+import Image from "next/image";
 
 export function EditProfile(props) {
   const { register, handleSubmit } = useForm();
@@ -61,7 +62,7 @@ export function EditProfile(props) {
           <div className="flex flex-col items-center py-4">
             <div className="w-[200px] h-[200px]">
               {previewImage && (
-                <img
+                <Image
                   className="rounded-full w-full h-full"
                   src={previewImage}
                   alt="Profile Preview"

@@ -6,8 +6,9 @@ import { FiEdit } from "react-icons/fi";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { EditProfile } from "./EditProfile";
+import Image from "next/image";
 
-export default function profile() {
+export default function Profile() {
   const [name, setName] = useState("John doe");
   const [email, setEmail] = useState("johndoe@gmail.com");
   const [uid, setUid] = useState("123456789");
@@ -73,9 +74,10 @@ export default function profile() {
             <div className="top-section-container flex h-full ">
               <div className="top-left-section w-2/6 flex flex-col py-4 items-center justify-center border-r border-gray-700">
                 <div className="left-img-container relative h-[180px] w-[180px] overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80"
                     className="absolute h-full w-full  rounded-full"
+                    alt=""
                   />
                 </div>
                 <p className="py-4 w-full text-center text-xl">{name}</p>

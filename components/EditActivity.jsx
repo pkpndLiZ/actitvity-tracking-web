@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
 
 export function EditActivity(props) {
   const {
@@ -102,7 +103,7 @@ export function EditActivity(props) {
           <div>
             {showImagePreview && (previewImage || props.item.imageUrl) && (
               <div className="relative">
-                <img
+                <Image
                   className="image-preview"
                   src={previewImage || props.item.imageUrl}
                   alt="Selected file"

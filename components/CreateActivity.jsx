@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
+import Image from "next/image";
 
 export function CreateActivity(props) {
   const {
@@ -73,7 +74,7 @@ export function CreateActivity(props) {
         <div className="image-container">
           <div>
             {previewImage && (
-              <img
+              <Image
                 className="image-preview"
                 src={previewImage}
                 alt="Selected file"
