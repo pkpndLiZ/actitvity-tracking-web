@@ -34,6 +34,8 @@ export function NavBar({ userData }) {
       const auth = getAuth(app);
       await signOut(auth);
       setIsLoggedIn(false);
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
       router.push("/");
       window.location.reload();
     } catch (e) {

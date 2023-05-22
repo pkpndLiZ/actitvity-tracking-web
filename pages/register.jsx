@@ -39,7 +39,7 @@ export default function Register(props) {
       const userInfo = {
         userId: uid,
         email: email,
-        username: uid,
+        username: uid.slice(0, 4),
       };
 
       axiosInstance

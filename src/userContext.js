@@ -1,27 +1,24 @@
 // UserContext.js
 import React, { createContext, useState, useEffect } from "react";
+import { fetch } from "./axiosInstance";
+import useSWR from "swr";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  const { data: userData, mutate: updateUserData } = useSWR(
+    userId ? "/api/users/" + userId : null,
+    fetch
+  );
 
   useEffect(() => {
-    const data = localStorage.getItem("userData");
-    if (data) {
-      setUserData(JSON.parse(data));
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      setUserId(userId);
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
-  }, [userData]);
-
-  const updateUserData = (newData) => {
-    setUserData({
-      ...newData,
-    });
-  };
 
   const userContextValue = {
     userData,
