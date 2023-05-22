@@ -20,6 +20,7 @@ export function EditActivity(props) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const userId = localStorage.getItem("userId");
+  const [imageSizeError, setImageSizeError] = useState(false);
 
   const onSubmit = async (data) => {
     let newActivity = {
@@ -42,7 +43,7 @@ export function EditActivity(props) {
     } else if (props.item.imageUrl) {
       newActivity = {
         ...newActivity,
-        imageUrl: null,
+        imageUrl: props.item.imageUrl, // Use the existing image URL
       };
     }
 
@@ -81,11 +82,21 @@ export function EditActivity(props) {
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
+
+    // Check the file size
+    if (selectedFile.size > 10 * 1024 * 1024) {
+      setImageSizeError(true);
+      setImageFile(null);
+      setPreviewImage(null);
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
       setImageFile(reader.result);
       setPreviewImage(reader.result);
+      setImageSizeError(false);
     };
   };
 
@@ -122,6 +133,11 @@ export function EditActivity(props) {
               </div>
             )}
           </div>
+          {imageSizeError && (
+            <span className="text-red-500 text-sm">
+              Image size is too large
+            </span>
+          )}
           <label htmlFor="image">Choose an image:</label>
           <input
             type="file"
@@ -132,12 +148,10 @@ export function EditActivity(props) {
         </div>
         <div className="title-container">
           <label htmlFor="activity-name">Title:</label>
-          <input
-            type="text"
-            id="activity-title"
-            {...register("title", { required: true })}
-          />
-          {errors.title && <span>This field is required</span>}
+          <input type="text" id="activity-title" {...register("title")} />
+          {errors.title && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
         </div>
         <div className="type-container">
           <label htmlFor="activity-type">Activity Type:</label>
@@ -153,7 +167,9 @@ export function EditActivity(props) {
             <option value="Hiking">Hiking</option>
             <option value="Running">Running</option>
           </select>
-          {errors.activityType && <span>This field is required</span>}
+          {errors.activityType && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
         </div>
         <div className="date-container">
           <label htmlFor="activity-date">Activity Date:</label>
@@ -162,38 +178,49 @@ export function EditActivity(props) {
             id="activity-date"
             {...register("date", { required: true })}
           />
-          {errors.date && <span>This field is required</span>}
+          {errors.date && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
         </div>
         <div className="duration-container">
           <label htmlFor="activity-start-time">Duration:</label>
-          <div className="hour-container">
-            <select
-              id="activity-hour"
-              {...register("hours", { required: true })}
-            >
-              <option value="">hr</option>
-              {Array.from(Array(13).keys()).map((hour) => (
-                <option key={hour} value={hour}>
-                  {hour}
-                </option>
-              ))}
-            </select>
+          <div className="flex flex-col">
+            <div className="flex gap-4">
+              <div className="hour-container">
+                <select
+                  id="activity-hour"
+                  {...register("hours", { required: true })}
+                >
+                  <option value="">hr</option>
+                  {Array.from(Array(13).keys()).map((hour) => (
+                    <option key={hour} value={hour}>
+                      {hour}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="minute-container">
+                <select
+                  id="activity-minutes"
+                  {...register("minutes", { required: true })}
+                >
+                  <option value="">min</option>
+                  {Array.from(Array(60).keys()).map((minute) => (
+                    <option key={minute} value={minute}>
+                      {minute}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              {errors.hours || errors.minutes ? (
+                <span className="text-red-500 text-sm">
+                  Hour and Minute are required
+                </span>
+              ) : null}
+            </div>
           </div>
-          <div className="minute-container">
-            <select
-              id="activity-minutes"
-              {...register("minutes", { required: true })}
-            >
-              <option value="">min</option>
-              {Array.from(Array(60).keys()).map((minute) => (
-                <option key={minute} value={minute}>
-                  {minute}
-                </option>
-              ))}
-            </select>
-          </div>
-          {errors.hours && <span>This field is required</span>}
-          {errors.minutes && <span>This field is required</span>}
         </div>
         <div className="distance-container">
           <label htmlFor="distance">Distance(KM)</label>
@@ -211,10 +238,7 @@ export function EditActivity(props) {
         </div>
         <div className="description-container">
           <label htmlFor="description">Description:</label>
-          <textarea
-            id="activity-description"
-            {...register("description", { required: true })}
-          />
+          <textarea id="activity-description" {...register("description")} />
           {errors.description && <span>This field is required</span>}
         </div>
 
@@ -223,6 +247,7 @@ export function EditActivity(props) {
             className="submit-button"
             type="submit"
             onClick={handleSubmit}
+            disabled={imageSizeError}
           >
             Edit
           </button>
