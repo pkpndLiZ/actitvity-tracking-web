@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { app } from "@/src/firebase";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import { UserContext } from "@/src/userContext";
 import {
   browserSessionPersistence,
   getAuth,
@@ -11,6 +12,7 @@ import {
 } from "@firebase/auth";
 
 export default function Login(props) {
+  const { updateUserData, userData } = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
@@ -27,7 +29,10 @@ export default function Login(props) {
         const user = userCredential.user;
         enqueueSnackbar("Login success.", { variant: "success" });
         localStorage.setItem("token", user.accessToken);
-        localStorage.setItem("userId", user.uid);
+        updateUserData({
+          userId: user.uid,
+          username: user.uid,
+        });
 
         router.push("/");
         console.log(user);

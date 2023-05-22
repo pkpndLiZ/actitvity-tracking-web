@@ -1,5 +1,6 @@
 import "@/styles/globals.scss";
 import { SnackbarProvider } from "notistack";
+import { UserProvider } from "../src/userContext";
 
 // import Font Awesome CSS
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -12,7 +13,9 @@ config.autoAddCss = false;
 export default function App({ Component, pageProps }) {
   return (
     <SnackbarProvider maxSnack={3}>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </SnackbarProvider>
   );
 }
