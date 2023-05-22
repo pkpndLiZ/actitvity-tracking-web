@@ -37,7 +37,6 @@ export function NavBar({ userData }) {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       router.push("/");
-      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -46,14 +45,14 @@ export function NavBar({ userData }) {
   const renderProfileIcon = () => {
     if (userData && userData.userImage) {
       return (
-        <img
+        <Image
           src={userData.userImage}
           alt="User Profile"
           className="profile-image"
         />
       );
     } else {
-      return <Image src={defaultImg} />;
+      return <Image src={defaultImg} alt="default image" />;
     }
   };
 

@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -10,6 +9,10 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
+import { app } from "../src/firebase.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 
 export default function CardMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,19 +49,14 @@ export default function CardMenu(props) {
   };
 
   const handleDeleteClick = async () => {
-    axiosInstance
-      .delete(`api/posts/${props.item._id}`)
-      .then(async (response) => {
-        setSuccess(true);
-        console.log("response: ", response);
-        await mutate("api/posts");
-        // console.log(props.item.post_status);
-        // props.onClose();
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log("error: " + error.message);
-      });
+    try {
+      await axiosInstance.delete(`api/posts/${props.item._id}`);
+      setSuccess(true);
+      await mutate("api/posts");
+    } catch (error) {
+      setError(error.message);
+      console.log("error: " + error.message);
+    }
   };
 
   return (

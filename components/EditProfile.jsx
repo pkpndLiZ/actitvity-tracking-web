@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegSave } from "react-icons/fa";
+import { axiosInstance } from "../src/axiosInstance";
+import { getAuth } from "@firebase/auth";
+import { app } from "../src/firebase";
+import { mutate } from "swr";
+import Image from "next/image";
 
-export default function EditProfile() {
+export function EditProfile(props) {
   const { register, handleSubmit } = useForm();
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const auth = getAuth(app);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -17,9 +25,9 @@ export default function EditProfile() {
     };
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const userInfo = {
-      userId: "112233445566",
+      userId: auth.currentUser.uid,
       username: data.username,
       userImage: imageFile,
       firstName: data.firstName,
@@ -30,7 +38,20 @@ export default function EditProfile() {
       height: data.height,
       weight: data.weight,
     };
+
     console.log(userInfo);
+    axiosInstance
+      .put(`api/users/${auth.currentUser.uid}`, userInfo)
+      .then(async (response) => {
+        setSuccess(true);
+        console.log("response: ", response);
+        await mutate(`api/users/${auth.currentUser.uid}`);
+        props.onClose();
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log("error: " + error.message);
+      });
   };
 
   return (
@@ -41,7 +62,7 @@ export default function EditProfile() {
           <div className="flex flex-col items-center py-4">
             <div className="w-[200px] h-[200px]">
               {previewImage && (
-                <img
+                <Image
                   className="rounded-full w-full h-full"
                   src={previewImage}
                   alt="Profile Preview"
