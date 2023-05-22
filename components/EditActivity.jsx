@@ -19,10 +19,11 @@ export function EditActivity(props) {
   const [previewImage, setPreviewImage] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const userId = localStorage.getItem("userId");
 
   const onSubmit = async (data) => {
     let newActivity = {
-      userId: "1123455667",
+      userId: userId,
       username: "somngiNGuy",
       userImage: "myImg",
       type: data.activityType,
@@ -103,7 +104,7 @@ export function EditActivity(props) {
           <div>
             {showImagePreview && (previewImage || props.item.imageUrl) && (
               <div className="relative">
-                <Image
+                <img
                   className="image-preview"
                   src={previewImage || props.item.imageUrl}
                   alt="Selected file"
