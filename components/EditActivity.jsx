@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
+import { UserContext } from "@/src/userContext";
 
 export function EditActivity(props) {
   const {
@@ -13,7 +14,7 @@ export function EditActivity(props) {
     formState: { errors },
     reset,
   } = useForm();
-
+  const { userData } = useContext(UserContext);
   const [showImagePreview, setShowImagePreview] = useState(true);
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -25,8 +26,8 @@ export function EditActivity(props) {
   const onSubmit = async (data) => {
     let newActivity = {
       userId: userId,
-      username: "somngiNGuy",
-      userImage: "myImg",
+      username: userData?.username,
+      userImage: userData?.userImage,
       type: data.activityType,
       duration: { hr: data.hours, min: data.minutes },
       distance: data.distance,
