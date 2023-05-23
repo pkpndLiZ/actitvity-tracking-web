@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, use } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegSave } from "react-icons/fa";
 import { axiosInstance } from "../src/axiosInstance";
@@ -6,8 +6,10 @@ import { getAuth } from "@firebase/auth";
 import { app } from "../src/firebase";
 import { mutate } from "swr";
 import Image from "next/image";
+import { UserContext } from "@/src/userContext";
 
 export function EditProfile(props) {
+  const { updateUserData } = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -45,7 +47,7 @@ export function EditProfile(props) {
       .then(async (response) => {
         setSuccess(true);
         console.log("response: ", response);
-        await mutate(`api/users/${auth.currentUser.uid}`);
+        await updateUserData();
         props.onClose();
       })
       .catch((error) => {
@@ -63,7 +65,10 @@ export function EditProfile(props) {
             <div className="w-[200px] h-[200px]">
               {previewImage && (
                 <Image
-                  className="rounded-full w-full h-full"
+                  width={200}
+                  height={200}
+                  style={{ objectFit: "cover" }}
+                  className="rounded-full"
                   src={previewImage}
                   alt="Profile Preview"
                 />

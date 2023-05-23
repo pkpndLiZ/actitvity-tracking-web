@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { fetch } from "../src/axiosInstance";
 import useSWR from "swr";
 import { CardItem } from "@/components/CardItem";
@@ -7,18 +7,28 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { EditProfile } from "./EditProfile";
 import Image from "next/image";
+import { UserContext } from "@/src/userContext";
+import defaultImg from "../public/images/mock/astronaut.png";
 
 export default function Profile() {
-  const [name, setName] = useState("John doe");
-  const [email, setEmail] = useState("johndoe@gmail.com");
-  const [uid, setUid] = useState("123456789");
-  const [weight, setWeight] = useState("70");
-  const [height, setHeight] = useState("170");
-  const [bmi, setBmi] = useState("24");
-  const [gender, setGender] = useState("John doe");
-  const [dob, setDob] = useState("24/06/1998");
-  const [city, setCity] = useState("John doe");
+  const { userData } = useContext(UserContext);
+
+  // const [name, setName] = useState("John doe");
+  // const [email, setEmail] = useState("johndoe@gmail.com");
+  // const [uid, setUid] = useState("123456789");
+  // const [weight, setWeight] = useState("70");
+  // const [height, setHeight] = useState("170");
+  // const [bmi, setBmi] = useState("24");
+  // const [gender, setGender] = useState("John doe");
+  // const [dob, setDob] = useState("24/06/1998");
+  // const [city, setCity] = useState("John doe");
+
+  function displayText(value) {
+    return value ?? "-";
+  }
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -46,7 +56,10 @@ export default function Profile() {
     setModalIsOpen(false);
   };
 
-  const { data: posts, error } = useSWR("api/posts", fetch);
+  const { data: posts, error } = useSWR(
+    userData?.userId ? `api/users/${userData?.userId}/posts` : null,
+    fetch
+  );
   if (error) {
     return <div>Error loading activities: {error}</div>;
   }
@@ -59,7 +72,9 @@ export default function Profile() {
     <div>
       <div>
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl text-white py-8">Profile</h1>
+          <h1 className="text-3xl text-white py-8">
+            {displayText(userData?.username)}
+          </h1>
 
           <button
             onClick={handleModalOpen}
@@ -74,10 +89,13 @@ export default function Profile() {
             <div className="top-section-container flex h-full ">
               <div className="top-left-section w-2/6 flex flex-col py-4 items-center justify-center border-r border-gray-700">
                 <div className="left-img-container relative h-[180px] w-[180px] overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80"
-                    className="absolute h-full w-full  rounded-full"
-                    alt=""
+                  <Image
+                    fill
+                    style={{ objectFit: "cover" }}
+                    src={userData?.userImage ?? defaultImg}
+                    className="absolute rounded-full"
+                    alt="user-profile-image"
+                    quality={40}
                   />
                 </div>
                 <p className="py-4 w-full text-center text-xl">{name}</p>
@@ -86,37 +104,37 @@ export default function Profile() {
                 <div className="half-top-section h-1/2 flex flex-col justify-center gap-4 px-8 border-b border-gray-700">
                   <div className="flex">
                     <p className="font-bold">Email:</p>
-                    <p className="px-4">{email}</p>
+                    <p className="px-4">{displayText(userData?.email)}</p>
                   </div>
                   <div className="flex">
                     <p className="font-bold">User Id:</p>
-                    <p className="px-4">{uid}</p>
+                    <p className="px-4">{displayText(userData?.userId)}</p>
                   </div>
                 </div>
                 <div className="half-bot-section grid grid-cols-3 grid-rows-2 h-1/2 px-8">
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Weight</p>
-                    <p>{weight}</p>
+                    <p>{displayText(userData?.weight)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">height</p>
-                    <p>{height}</p>
+                    <p>{displayText(userData?.height)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">BMI</p>
-                    <p>{bmi}</p>
+                    <p>{displayText(userData?.height)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Gender</p>
-                    <p>{gender}</p>
+                    <p>{displayText(userData?.gender)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Date of birth</p>
-                    <p>{dob}</p>
+                    <p>{displayText(userData?.birthDate)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">City</p>
-                    <p>{city}</p>
+                    <p>{displayText(userData?.city)}</p>
                   </div>
                 </div>
               </div>
