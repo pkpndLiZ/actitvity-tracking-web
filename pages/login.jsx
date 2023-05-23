@@ -12,8 +12,10 @@ import {
 } from "@firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { UserContext } from "@/src/userContext";
 
 export default function Login(props) {
+  const { updateUserData } = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
@@ -31,6 +33,7 @@ export default function Login(props) {
         enqueueSnackbar("Login success.", { variant: "success" });
         localStorage.setItem("token", user.accessToken);
         localStorage.setItem("userId", user.uid);
+        updateUserData();
 
         router.push("/");
         console.log(user);
