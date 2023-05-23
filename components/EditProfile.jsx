@@ -4,34 +4,59 @@ import { FaRegSave } from "react-icons/fa";
 import { axiosInstance } from "../src/axiosInstance";
 import { getAuth } from "@firebase/auth";
 import { app } from "../src/firebase";
-import { mutate } from "swr";
-import Image from "next/image";
 import { UserContext } from "@/src/userContext";
+import defaultImage from "../public/images/mock/astronaut.png";
 
 export function EditProfile(props) {
-  const { updateUserData } = useContext(UserContext);
-  const { register, handleSubmit } = useForm();
+  const { updateUserData, userData } = useContext(UserContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [imageFile, setImageFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(userData?.userImage || null);
+  const {
+    username,
+    firstName,
+    lastName,
+    birthDate,
+    gender,
+    city,
+    weight,
+    height,
+  } = userData || {};
+
   const auth = getAuth(app);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [imageSizeError, setImageSizeError] = useState(false);
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
+
+    // Check the file size
+    if (selectedFile.size > 10 * 1024 * 1024) {
+      setImageSizeError(true);
+      setImageFile(null);
+      setPreviewImage(userData?.userImage || null);
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
       setImageFile(reader.result);
       setPreviewImage(reader.result);
+      setImageSizeError(false);
     };
   };
 
   const onSubmit = async (data) => {
-    const userInfo = {
+    let userInfo = {
       userId: auth.currentUser.uid,
       username: data.username,
-      userImage: imageFile,
+
       firstName: data.firstName,
       lastName: data.lastName,
       birthDate: data.birthDate,
@@ -40,6 +65,18 @@ export function EditProfile(props) {
       height: data.height,
       weight: data.weight,
     };
+
+    if (imageFile) {
+      userInfo = {
+        ...userInfo,
+        userImage: imageFile,
+      };
+    } else if (userData.userImage) {
+      userInfo = {
+        ...userInfo,
+        userImage: userData.userImage,
+      };
+    }
 
     console.log(userInfo);
     axiosInstance
@@ -63,17 +100,27 @@ export function EditProfile(props) {
         <form onSubmit={handleSubmit(onSubmit)} className="text-white">
           <div className="flex flex-col items-center py-4">
             <div className="w-[200px] h-[200px]">
-              {previewImage && (
-                <Image
-                  width={200}
-                  height={200}
+              {previewImage ? (
+                <img
                   style={{ objectFit: "cover" }}
-                  className="rounded-full"
+                  className="rounded-full h-full w-full"
                   src={previewImage}
+                  alt="Profile Preview"
+                />
+              ) : (
+                <img
+                  style={{ objectFit: "cover" }}
+                  className="rounded-full h-full w-full"
+                  src={previewImage || defaultImage}
                   alt="Profile Preview"
                 />
               )}
             </div>
+            {imageSizeError && (
+              <span className="text-red-500 text-sm">
+                Image size is too large
+              </span>
+            )}
             <label className="text-xl py-4">Choose an image</label>
             <input
               id="imageUpload"
@@ -89,6 +136,7 @@ export function EditProfile(props) {
               placeholder="e.g. johndoe123"
               type="text"
               {...register("username", { required: true })}
+              defaultValue={username || ""}
             />
           </div>
           <div className="flex w-full gap-4 py-2">
@@ -102,6 +150,7 @@ export function EditProfile(props) {
                   required: true,
                   pattern: /^[A-Za-z]+$/i,
                 })}
+                defaultValue={firstName || ""}
               />
             </div>
             <div className="flex w-full items-center">
@@ -114,8 +163,16 @@ export function EditProfile(props) {
                   required: true,
                   pattern: /^[A-Za-z]+$/i,
                 })}
+                defaultValue={lastName || ""}
               />
             </div>
+          </div>
+          <div className="flex justify-center">
+            {errors.firstName || errors.lastName ? (
+              <span className="text-red-500 text-sm">
+                Your name or lastname must not contain number or symbol
+              </span>
+            ) : null}
           </div>
           <div className="flex w-full gap-4 py-2">
             <div className="flex w-full items-center">
@@ -126,6 +183,7 @@ export function EditProfile(props) {
                 type="date"
                 {...register("birthDate", { required: true })}
                 lang="en"
+                defaultValue={birthDate || ""}
               />
             </div>
             <div className="flex w-full items-center">
@@ -133,6 +191,7 @@ export function EditProfile(props) {
               <select
                 className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
                 {...register("gender", { required: true })}
+                defaultValue={gender || ""}
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -146,8 +205,16 @@ export function EditProfile(props) {
               className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
               placeholder="e.g. Bangkok"
               type="text"
-              {...register("city", { required: true })}
+              {...register("city", { required: true, pattern: /^[A-Za-z]+$/i })}
+              defaultValue={city || ""}
             />
+          </div>
+          <div>
+            {errors.city || errors.lastName ? (
+              <span className="text-red-500 text-sm">
+                City must not contain number or symbol
+              </span>
+            ) : null}
           </div>
           <div className="flex w-full gap-4 py-4">
             <div className="flex w-full items-center">
@@ -157,6 +224,7 @@ export function EditProfile(props) {
                 placeholder="e.g. 70"
                 type="number"
                 {...register("weight", { required: true })}
+                defaultValue={weight || ""}
               />
             </div>
             <div className="flex w-full items-center">
@@ -166,6 +234,7 @@ export function EditProfile(props) {
                 placeholder="e.g. 170"
                 type="number"
                 {...register("height", { required: true })}
+                defaultValue={height || ""}
               />
             </div>
           </div>
@@ -175,6 +244,7 @@ export function EditProfile(props) {
             type="submit"
             onClick={handleSubmit(onSubmit)}
             className=" text-lg font-semibold text-black border border-green-900 flex w-[100px] my-8 py-2 bg-green-600 items-center rounded-md hover:bg-black hover:text-green-500 shadow-lg shadow-black"
+            disabled={imageSizeError}
           >
             <FaRegSave className="ml-2 mr-2" /> Save
           </button>
