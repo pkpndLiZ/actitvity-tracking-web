@@ -10,7 +10,11 @@ import { UserContext } from "@/src/userContext";
 
 export function EditProfile(props) {
   const { updateUserData } = useContext(UserContext);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const auth = getAuth(app);
@@ -88,9 +92,18 @@ export function EditProfile(props) {
               className="text-[20px] w-full h-[40px] pl-2 text-white bg-[#403f3f] rounded-md border-[#292828] shadow-xl shadow-black"
               placeholder="e.g. johndoe123"
               type="text"
-              {...register("username", { required: true })}
+              {...register("username", {
+                required: true,
+                minLength: 8,
+                maxLength: 12,
+              })}
             />
           </div>
+          {errors.username && (
+            <p className="text-red-500 text-sm">
+              Display name must be between 8 and 12 characters long.
+            </p>
+          )}
           <div className="flex w-full gap-4 py-2">
             <div className="flex w-full  items-center">
               <p className="w-6/12 py-3 text-xl font-semibold">First Name :</p>
