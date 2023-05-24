@@ -7,11 +7,30 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
+  // const token = "asdasd";
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
   }
   return config;
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      logoutUserAndRedirect();
+    }
+    return Promise.reject(error);
+  }
+);
+
+async function logoutUserAndRedirect() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
+  window.location.href = "/login";
+}
 
 export async function fetch(path) {
   try {
