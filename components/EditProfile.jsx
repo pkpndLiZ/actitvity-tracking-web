@@ -151,6 +151,7 @@ export function EditProfile(props) {
                 minLength: 8,
                 maxLength: 12,
               })}
+              defaultValue={username || ""}
             />
           </div>
           {errors.username && (
