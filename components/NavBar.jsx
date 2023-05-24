@@ -8,10 +8,10 @@ import defaultImg from "../public/images/mock/astronaut.png";
 import Image from "next/image.js";
 import { UserContext } from "@/src/userContext.js";
 
-export function NavBar({ userData }) {
+export function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
-  const { clearUserData } = useContext(UserContext);
+  const { clearUserData, userData } = useContext(UserContext);
 
   useEffect(() => {
     // Check user's login status initially
@@ -45,13 +45,13 @@ export function NavBar({ userData }) {
     }
   };
 
-  const renderProfileIcon = () => {
+  const renderProfileIcon = (userData) => {
     if (userData && userData.userImage) {
       return (
-        <Image
+        <img
           src={userData.userImage}
           alt="User Profile"
-          className="profile-image"
+          className="w-full h-full rounded-full"
         />
       );
     } else {
@@ -77,7 +77,9 @@ export function NavBar({ userData }) {
             Logout
           </button>
           <div className="w-[40px] h-[40px]">
-            <Link href="/profile">{renderProfileIcon()}</Link>
+            <Link className="rounded-full w-full h-full" href="/profile">
+              {renderProfileIcon(userData)}
+            </Link>
           </div>
         </div>
       ) : (
