@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Link from "next/link";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { app } from "../src/firebase.js"; // Path to your firebase config file
@@ -6,10 +6,12 @@ import { useRouter } from "next/router";
 import { BsFillPersonFill } from "react-icons/bs";
 import defaultImg from "../public/images/mock/astronaut.png";
 import Image from "next/image.js";
+import { UserContext } from "@/src/userContext.js";
 
 export function NavBar({ userData }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const { clearUserData } = useContext(UserContext);
 
   useEffect(() => {
     // Check user's login status initially
@@ -36,6 +38,7 @@ export function NavBar({ userData }) {
       setIsLoggedIn(false);
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
+      clearUserData();
       router.push("/");
     } catch (e) {
       console.log(e.message);
