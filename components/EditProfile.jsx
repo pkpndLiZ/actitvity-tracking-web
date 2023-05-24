@@ -6,6 +6,8 @@ import { getAuth } from "@firebase/auth";
 import { app } from "../src/firebase";
 import { UserContext } from "@/src/userContext";
 import defaultImage from "../public/images/mock/astronaut.png";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function EditProfile(props) {
   const { updateUserData, userData } = useContext(UserContext);
@@ -31,6 +33,7 @@ export function EditProfile(props) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [imageSizeError, setImageSizeError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -78,6 +81,8 @@ export function EditProfile(props) {
       };
     }
 
+    setLoading(true);
+
     console.log(userInfo);
     axiosInstance
       .put(`api/users/${auth.currentUser.uid}`, userInfo)
@@ -86,15 +91,21 @@ export function EditProfile(props) {
         console.log("response: ", response);
         await updateUserData();
         props.onClose();
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
         console.log("error: " + error.message);
+        setLoading(false);
       });
   };
 
   return (
     <div className=" w-full h-full flex justify-center">
+      <Backdrop open={loading} style={{ zIndex: 9999 }}>
+        {/* You can customize the backdrop's content */}
+        <CircularProgress />
+      </Backdrop>
       <div className="w-4/5 text-white">
         <h2 className="text-center text-[50px] font-bold">Edit Profile</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="text-white">
