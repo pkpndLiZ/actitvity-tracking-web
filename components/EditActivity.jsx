@@ -5,6 +5,8 @@ import { mutate } from "swr";
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
 import { UserContext } from "@/src/userContext";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function EditActivity(props) {
   const {
@@ -22,6 +24,10 @@ export function EditActivity(props) {
   const [success, setSuccess] = useState(false);
   const userId = localStorage.getItem("userId");
   const [imageSizeError, setImageSizeError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [existActivityImage, setExistActivityImage] = useState(
+    props.item.userImage
+  );
 
   const onSubmit = async (data) => {
     let newActivity = {
@@ -36,7 +42,7 @@ export function EditActivity(props) {
       description: data.description,
     };
 
-    if (imageFile === null) {
+    if (imageFile === null && existActivityImage === null) {
       newActivity = {
         ...newActivity,
         imageUrl: null,
@@ -53,6 +59,8 @@ export function EditActivity(props) {
       };
     }
 
+    setLoading(true);
+
     console.log(newActivity);
     axiosInstance
       .put(`api/posts/${props.item._id}`, newActivity)
@@ -63,10 +71,12 @@ export function EditActivity(props) {
         props.onClose();
         setPreviewImage(imageFile || props.item.imageUrl);
         setImageFile(null);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
         console.log("error: " + error.message);
+        setLoading(false);
       });
   };
 
@@ -111,10 +121,15 @@ export function EditActivity(props) {
     setPreviewImage(null);
     setImageFile(null);
     setShowImagePreview(false);
+    setExistActivityImage(null);
   };
 
   return (
     <div className="form-container">
+      <Backdrop open={loading} style={{ zIndex: 9999 }}>
+        {/* You can customize the backdrop's content */}
+        <CircularProgress />
+      </Backdrop>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Edit Activity</h3>
         <div className="image-container">
