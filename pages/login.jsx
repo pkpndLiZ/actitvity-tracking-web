@@ -34,7 +34,6 @@ export default function Login(props) {
         localStorage.setItem("token", user.accessToken);
         localStorage.setItem("userId", user.uid);
         updateUserData();
-
         router.push("/");
         console.log(user);
       })
