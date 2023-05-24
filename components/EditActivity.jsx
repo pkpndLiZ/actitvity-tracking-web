@@ -36,15 +36,20 @@ export function EditActivity(props) {
       description: data.description,
     };
 
-    if (imageFile) {
+    if (imageFile === null) {
       newActivity = {
         ...newActivity,
-        imageUrl: imageFile,
+        imageUrl: null,
       };
     } else if (props.item.imageUrl) {
       newActivity = {
         ...newActivity,
         imageUrl: props.item.imageUrl, // Use the existing image URL
+      };
+    } else if (imageFile) {
+      newActivity = {
+        ...newActivity,
+        imageUrl: imageFile,
       };
     }
 
