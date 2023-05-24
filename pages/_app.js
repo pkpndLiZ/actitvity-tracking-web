@@ -1,6 +1,7 @@
 import "@/styles/globals.scss";
 import { SnackbarProvider } from "notistack";
 import { UserProvider } from "../src/userContext";
+import NextNProgress from "nextjs-progressbar";
 
 // import Font Awesome CSS
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }) {
   return (
     <SnackbarProvider maxSnack={3}>
       <UserProvider>
+        <NextNProgress />
         <Component {...pageProps} />
       </UserProvider>
     </SnackbarProvider>
