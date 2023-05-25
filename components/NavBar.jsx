@@ -7,6 +7,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import defaultImg from "../public/images/mock/astronaut.png";
 import Image from "next/image.js";
 import { UserContext } from "@/src/userContext.js";
+import logoImage from "../public/images/icons/gymmini-low-resolution-logo-color-on-transparent-background.svg";
 
 export function NavBar({ userData }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,9 +63,8 @@ export function NavBar({ userData }) {
   return (
     <nav className="navbar-container">
       <div className="left-navbar-container">
-        <Link href="/">
-          <span>Gym</span>
-          <span>mini</span>
+        <Link href="/" className="w-[200px] h-[50px]">
+          <Image className="w-full h-full" src={logoImage} alt="" />
         </Link>
       </div>
       {isLoggedIn ? (
@@ -84,9 +84,19 @@ export function NavBar({ userData }) {
         <div className="right-navbar-container">
           {/* Render login and register links */}
           <span>Have an account?</span>
-          <Link href="/login">Login</Link>
+          <Link
+            className="text-[#DBACFF] hover:text-violet-700 duration-500"
+            href="/login"
+          >
+            Login
+          </Link>
           <span>or</span>
-          <Link href="/register">Register</Link>
+          <Link
+            className="text-[#DBACFF] hover:text-violet-700 duration-500"
+            href="/register"
+          >
+            Register
+          </Link>
         </div>
       )}
     </nav>

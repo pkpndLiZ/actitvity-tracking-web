@@ -94,78 +94,83 @@ export function SideBar() {
   };
 
   return (
-    <div className="sidebar-container">
-      <div className="top-sidebar-container">
-        <h3>Explore</h3>
-        <span
-          className={`side-menu ${activeMenu === "Biking" ? "active" : ""}`}
-          onClick={() => {
-            handleMenuClick("Biking");
-          }}
-        >
-          <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
-          <p>Biking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "Walking" ? "active" : ""}`}
-          onClick={() => handleMenuClick("Walking")}
-        >
-          <FontAwesomeIcon icon={faPersonWalking} className="side-menu-icon" />
-          <p>Walking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "Swimming" ? "active" : ""}`}
-          onClick={() => handleMenuClick("Swimming")}
-        >
-          <FontAwesomeIcon icon={faPersonSwimming} className="side-menu-icon" />
-          <p>Swimming</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "Hiking" ? "active" : ""}`}
-          onClick={() => handleMenuClick("Hiking")}
-        >
-          <FontAwesomeIcon icon={faPersonHiking} className="side-menu-icon" />
-          <p>Hiking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "Running" ? "active" : ""}`}
-          onClick={() => handleMenuClick("Running")}
-        >
-          <FontAwesomeIcon icon={faPersonRunning} className="side-menu-icon" />
-          <p>Running</p>
-        </span>
+    <>
+      <div className="sidebar-container">
+        <div className="top-sidebar-container">
+          <h2 className="text-4xl text-white font-semibold ">Explore</h2>
+          <span
+            className={`side-menu ${activeMenu === "Biking" ? "active" : ""}`}
+            onClick={() => {
+              handleMenuClick("Biking");
+            }}
+          >
+            <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
+            <p>Biking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "Walking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Walking")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonWalking}
+              className="side-menu-icon"
+            />
+            <p>Walking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "Swimming" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Swimming")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonSwimming}
+              className="side-menu-icon"
+            />
+            <p>Swimming</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "Hiking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Hiking")}
+          >
+            <FontAwesomeIcon icon={faPersonHiking} className="side-menu-icon" />
+            <p>Hiking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "Running" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Running")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonRunning}
+              className="side-menu-icon"
+            />
+            <p>Running</p>
+          </span>
+        </div>
+        <div className="border-b ml-12 pb-4"></div>
+        <div className="bottom-sidebar-container">
+          <span
+            className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
+            onClick={() => {
+              handleNewPostClick(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faSquarePlus} className="side-menu-icon" />
+            <p>New Post</p>
+          </span>
+        </div>
+
+        <div>
+          <Modal
+            open={modalIsOpen}
+            onClose={handleModalClose}
+            aria-labelledby="parent-modal-title"
+            aria-describedby="parent-modal-description"
+          >
+            <Box sx={{ ...modalStyle }}>
+              <CreateActivity onClose={handleModalClose} />
+            </Box>
+          </Modal>
+        </div>
       </div>
-      <div className="border-b ml-12 pb-4"></div>
-      <div className="bottom-sidebar-container">
-        <span
-          className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
-          onClick={() => {
-            handleNewPostClick(true);
-          }}
-        >
-          <FontAwesomeIcon icon={faSquarePlus} className="side-menu-icon" />
-          <p>New Post</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "BMI" ? "active" : ""}`}
-          onClick={() => handleMenuClick("BMI")}
-        >
-          <FontAwesomeIcon icon={faCalculator} className="side-menu-icon" />
-          <p>BMI Calculator</p>
-        </span>
-      </div>
-      <div>
-        <Modal
-          open={modalIsOpen}
-          onClose={handleModalClose}
-          aria-labelledby="parent-modal-title"
-          aria-describedby="parent-modal-description"
-        >
-          <Box sx={{ ...modalStyle }}>
-            <CreateActivity onClose={handleModalClose} />
-          </Box>
-        </Modal>
-      </div>
-    </div>
+    </>
   );
 }
