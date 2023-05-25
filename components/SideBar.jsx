@@ -7,7 +7,8 @@ import { app } from "../src/firebase.js";
 import { useRouter } from "next/router";
 import { CreateActivity } from "./CreateActivity";
 import { useSnackbar } from "notistack";
-import { BsPlusCircle } from "react-icons/bs";
+import { axiosInstance } from "../src/axiosInstance";
+import { mutate } from "swr";
 import {
   faPersonBiking,
   faPersonWalking,
@@ -32,10 +33,10 @@ const modalStyle = {
 export function SideBar() {
   const [activeMenu, setActiveMenu] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [newPost, setNewPost] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+  const activity = router.query.activity;
 
   useEffect(() => {
     // Check user's login status initially
@@ -56,10 +57,13 @@ export function SideBar() {
   }, []);
 
   const handleMenuClick = (menuName) => {
-    setActiveMenu((currentActiveMenu) =>
-      menuName === currentActiveMenu ? "" : menuName
-    );
+    router.push({ pathname: "/", query: { activity: menuName } });
+    // setActivity(menuName);
   };
+
+  useEffect(() => {
+    setActiveMenu(activity);
+  }, [activity]);
 
   const handleNewPostClick = (newPostState) => {
     // setNewPost((currentNewPostState) =>
@@ -95,17 +99,17 @@ export function SideBar() {
         <div className="top-sidebar-container">
           <h2 className="text-4xl text-white font-semibold ">Explore</h2>
           <span
-            className={`side-menu ${activeMenu === "biking" ? "active" : ""}`}
+            className={`side-menu ${activeMenu === "Biking" ? "active" : ""}`}
             onClick={() => {
-              handleMenuClick("biking");
+              handleMenuClick("Biking");
             }}
           >
             <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
             <p>Biking</p>
           </span>
           <span
-            className={`side-menu ${activeMenu === "walking" ? "active" : ""}`}
-            onClick={() => handleMenuClick("walking")}
+            className={`side-menu ${activeMenu === "Walking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Walking")}
           >
             <FontAwesomeIcon
               icon={faPersonWalking}
@@ -114,8 +118,8 @@ export function SideBar() {
             <p>Walking</p>
           </span>
           <span
-            className={`side-menu ${activeMenu === "swimming" ? "active" : ""}`}
-            onClick={() => handleMenuClick("swimming")}
+            className={`side-menu ${activeMenu === "Swimming" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Swimming")}
           >
             <FontAwesomeIcon
               icon={faPersonSwimming}
@@ -124,15 +128,15 @@ export function SideBar() {
             <p>Swimming</p>
           </span>
           <span
-            className={`side-menu ${activeMenu === "hiking" ? "active" : ""}`}
-            onClick={() => handleMenuClick("hiking")}
+            className={`side-menu ${activeMenu === "Hiking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Hiking")}
           >
             <FontAwesomeIcon icon={faPersonHiking} className="side-menu-icon" />
             <p>Hiking</p>
           </span>
           <span
-            className={`side-menu ${activeMenu === "running" ? "active" : ""}`}
-            onClick={() => handleMenuClick("running")}
+            className={`side-menu ${activeMenu === "Running" ? "active" : ""}`}
+            onClick={() => handleMenuClick("Running")}
           >
             <FontAwesomeIcon
               icon={faPersonRunning}
