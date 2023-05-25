@@ -116,14 +116,14 @@ export function EditProfile(props) {
                   style={{ objectFit: "cover" }}
                   className="rounded-full h-full w-full"
                   src={previewImage}
-                  alt="Profile Preview"
+                  alt=""
                 />
               ) : (
                 <img
                   style={{ objectFit: "cover" }}
                   className="rounded-full h-full w-full"
                   src={previewImage || defaultImage}
-                  alt="Profile Preview"
+                  alt=""
                 />
               )}
             </div>

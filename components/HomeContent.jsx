@@ -4,6 +4,8 @@ import { fetch } from "../src/axiosInstance";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import UserProfile from "@/pages/profile";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function HomeContent() {
   const [success, setSuccess] = useState(false);
@@ -15,7 +17,12 @@ export function HomeContent() {
   }
 
   if (!posts) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Backdrop />
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
