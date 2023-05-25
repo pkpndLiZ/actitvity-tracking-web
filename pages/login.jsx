@@ -49,7 +49,7 @@ export default function Login(props) {
     <div className="bg-[#19191a] h-screen fixed inset-0 flex items-center justify-center">
       <div className="w-9/12 flex shadow-xl shadow-black rounded-md">
         <div className="w-7/12 rounded-md md:object-none">
-          <Image src={exerciseImage} alt="loginImg" />
+          <Image className="h-full" src={exerciseImage} alt="loginImg" />
         </div>
         <div className="w-5/12 bg-[#282829] rounded-md">
           <form
