@@ -26,8 +26,6 @@ export function CreateActivity(props) {
   const onSubmit = (data) => {
     const newActivity = {
       userId: userData.userId,
-      username: userData?.username,
-      userImage: userData?.userImage,
       type: data.activityType,
       imageUrl: imageFile,
       duration: { hr: data.hours, min: data.minutes },

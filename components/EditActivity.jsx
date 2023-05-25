@@ -47,10 +47,10 @@ export function EditActivity(props) {
         ...newActivity,
         imageUrl: null,
       };
-    } else if (props.item.imageUrl) {
+    } else if (props.item.posts.imageUrl) {
       newActivity = {
         ...newActivity,
-        imageUrl: props.item.imageUrl, // Use the existing image URL
+        imageUrl: props.item.posts.imageUrl, // Use the existing image URL
       };
     } else if (imageFile) {
       newActivity = {
@@ -63,7 +63,7 @@ export function EditActivity(props) {
 
     console.log(newActivity);
     axiosInstance
-      .put(`api/posts/${props.item._id}`, newActivity)
+      .put(`api/posts/${props.item.posts._id}`, newActivity)
       .then(async (response) => {
         setSuccess(true);
         console.log("response: ", response);
@@ -82,16 +82,16 @@ export function EditActivity(props) {
 
   useEffect(() => {
     if (props.item) {
-      setValue("title", props.item.title);
-      setValue("activityType", props.item.type);
-      setValue("date", props.item.date);
-      setValue("hours", props.item.duration.hr);
-      setValue("minutes", props.item.duration.min);
-      setValue("distance", props.item.distance);
-      setValue("description", props.item.description);
+      setValue("title", props.item.posts.title);
+      setValue("activityType", props.item.posts.type);
+      setValue("date", props.item.posts.date);
+      setValue("hours", props.item.posts.duration.hr);
+      setValue("minutes", props.item.posts.duration.min);
+      setValue("distance", props.item.posts.distance);
+      setValue("description", props.item.posts.description);
 
       if (!imageFile) {
-        setPreviewImage(props.item.imageUrl);
+        setPreviewImage(props.item.posts.imageUrl);
       }
     }
   }, [props.item, imageFile]);

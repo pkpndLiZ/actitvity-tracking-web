@@ -44,14 +44,14 @@ export function HomeContent() {
             item={item}
             key={index}
             username={item.username}
-            // userImage={item.userImage}
-            imageUrl={item.imageUrl}
-            type={item.type}
-            duration={item.duration}
-            distance={item.distance}
-            date={item.date}
-            title={item.title}
-            description={item.description}
+            userImage={item.userImage}
+            imageUrl={item.posts.imageUrl}
+            type={item.posts.type}
+            duration={item.posts.duration}
+            distance={item.posts.distance}
+            date={item.posts.date}
+            title={item.posts.title}
+            description={item.posts.description}
           />
         );
       })}
