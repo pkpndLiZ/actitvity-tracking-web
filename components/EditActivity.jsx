@@ -63,7 +63,7 @@ export function EditActivity(props) {
 
     console.log(newActivity);
     axiosInstance
-      .put(`api/posts/${props.item._id}`, newActivity)
+      .put(`api/posts/${props.item.posts._id}`, newActivity)
       .then(async (response) => {
         setSuccess(true);
         console.log("response: ", response);
@@ -85,8 +85,8 @@ export function EditActivity(props) {
       setValue("title", props.item.title);
       setValue("activityType", props.item.type);
       setValue("date", props.item.date);
-      setValue("hours", props.item.duration.hr);
-      setValue("minutes", props.item.duration.min);
+      setValue("hours", props.item.posts.duration.hr);
+      setValue("minutes", props.item.posts.duration.min);
       setValue("distance", props.item.distance);
       setValue("description", props.item.description);
 

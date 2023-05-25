@@ -50,7 +50,7 @@ export default function CardMenu(props) {
 
   const handleDeleteClick = async () => {
     try {
-      await axiosInstance.delete(`api/posts/${props.item._id}`);
+      await axiosInstance.delete(`api/posts/${props.item.posts._id}`);
       setSuccess(true);
       await mutate("api/posts");
     } catch (error) {
