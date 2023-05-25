@@ -150,8 +150,8 @@ export default function Profile() {
                       <CardItem
                         item={item}
                         key={index}
-                        username={item.username}
-                        // userImage={item.userImage}
+                        username={item.user[0].username}
+                        userImage={item.user[0].userImage}
                         imageUrl={item.imageUrl}
                         type={item.type}
                         duration={item.duration}
