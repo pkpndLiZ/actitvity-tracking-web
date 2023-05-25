@@ -1,7 +1,7 @@
 /* ========== Navbar Component ========== */
 
 .navbar-container {
-  @apply flex bg-card;
+  @apply flex bg-card h-[85px];
 }
 
 .left-navbar-container {
@@ -16,7 +16,7 @@
   @apply text-violet-700 text-4xl;
 }
 .right-navbar-container {
-  @apply flex w-1/2 justify-end gap-x-3 pr-8 h-16 items-center;
+  @apply flex w-1/2 justify-end gap-x-3 pr-8 h-16 items-center h-full;
 }
 
 .right-navbar-container span {
@@ -24,5 +24,5 @@
 }
 
 .right-navbar-container a {
-  @apply text-violet-700 text-xl;
+  @apply text-xl;
 }

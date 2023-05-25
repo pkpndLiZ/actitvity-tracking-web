@@ -12,6 +12,11 @@ module.exports = {
         main: "#1F2021",
       },
 
+      screens: {
+        md: "1000px",
+        xl: "1480px",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

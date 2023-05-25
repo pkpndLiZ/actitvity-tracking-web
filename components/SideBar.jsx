@@ -7,6 +7,7 @@ import { app } from "../src/firebase.js";
 import { useRouter } from "next/router";
 import { CreateActivity } from "./CreateActivity";
 import { useSnackbar } from "notistack";
+import { BsPlusCircle } from "react-icons/bs";
 import {
   faPersonBiking,
   faPersonWalking,
@@ -89,78 +90,83 @@ export function SideBar() {
   };
 
   return (
-    <div className="sidebar-container">
-      <div className="top-sidebar-container">
-        <h3>Explore</h3>
-        <span
-          className={`side-menu ${activeMenu === "biking" ? "active" : ""}`}
-          onClick={() => {
-            handleMenuClick("biking");
-          }}
-        >
-          <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
-          <p>Biking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "walking" ? "active" : ""}`}
-          onClick={() => handleMenuClick("walking")}
-        >
-          <FontAwesomeIcon icon={faPersonWalking} className="side-menu-icon" />
-          <p>Walking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "swimming" ? "active" : ""}`}
-          onClick={() => handleMenuClick("swimming")}
-        >
-          <FontAwesomeIcon icon={faPersonSwimming} className="side-menu-icon" />
-          <p>Swimming</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "hiking" ? "active" : ""}`}
-          onClick={() => handleMenuClick("hiking")}
-        >
-          <FontAwesomeIcon icon={faPersonHiking} className="side-menu-icon" />
-          <p>Hiking</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "running" ? "active" : ""}`}
-          onClick={() => handleMenuClick("running")}
-        >
-          <FontAwesomeIcon icon={faPersonRunning} className="side-menu-icon" />
-          <p>Running</p>
-        </span>
+    <>
+      <div className="sidebar-container">
+        <div className="top-sidebar-container">
+          <h2 className="text-4xl text-white font-semibold ">Explore</h2>
+          <span
+            className={`side-menu ${activeMenu === "biking" ? "active" : ""}`}
+            onClick={() => {
+              handleMenuClick("biking");
+            }}
+          >
+            <FontAwesomeIcon icon={faPersonBiking} className="side-menu-icon" />
+            <p>Biking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "walking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("walking")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonWalking}
+              className="side-menu-icon"
+            />
+            <p>Walking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "swimming" ? "active" : ""}`}
+            onClick={() => handleMenuClick("swimming")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonSwimming}
+              className="side-menu-icon"
+            />
+            <p>Swimming</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "hiking" ? "active" : ""}`}
+            onClick={() => handleMenuClick("hiking")}
+          >
+            <FontAwesomeIcon icon={faPersonHiking} className="side-menu-icon" />
+            <p>Hiking</p>
+          </span>
+          <span
+            className={`side-menu ${activeMenu === "running" ? "active" : ""}`}
+            onClick={() => handleMenuClick("running")}
+          >
+            <FontAwesomeIcon
+              icon={faPersonRunning}
+              className="side-menu-icon"
+            />
+            <p>Running</p>
+          </span>
+        </div>
+        <div className="border-b ml-12 pb-4"></div>
+        <div className="bottom-sidebar-container">
+          <span
+            className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
+            onClick={() => {
+              handleNewPostClick(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faSquarePlus} className="side-menu-icon" />
+            <p>New Post</p>
+          </span>
+        </div>
+
+        <div>
+          <Modal
+            open={modalIsOpen}
+            onClose={handleModalClose}
+            aria-labelledby="parent-modal-title"
+            aria-describedby="parent-modal-description"
+          >
+            <Box sx={{ ...modalStyle }}>
+              <CreateActivity onClose={handleModalClose} />
+            </Box>
+          </Modal>
+        </div>
       </div>
-      <div className="border-b ml-12 pb-4"></div>
-      <div className="bottom-sidebar-container">
-        <span
-          className={`side-menu ${activeMenu === "newPost" ? "active" : ""}`}
-          onClick={() => {
-            handleNewPostClick(true);
-          }}
-        >
-          <FontAwesomeIcon icon={faSquarePlus} className="side-menu-icon" />
-          <p>New Post</p>
-        </span>
-        <span
-          className={`side-menu ${activeMenu === "BMI" ? "active" : ""}`}
-          onClick={() => handleMenuClick("BMI")}
-        >
-          <FontAwesomeIcon icon={faCalculator} className="side-menu-icon" />
-          <p>BMI Calculator</p>
-        </span>
-      </div>
-      <div>
-        <Modal
-          open={modalIsOpen}
-          onClose={handleModalClose}
-          aria-labelledby="parent-modal-title"
-          aria-describedby="parent-modal-description"
-        >
-          <Box sx={{ ...modalStyle }}>
-            <CreateActivity onClose={handleModalClose} />
-          </Box>
-        </Modal>
-      </div>
-    </div>
+    </>
   );
 }
