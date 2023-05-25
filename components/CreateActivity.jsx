@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { axiosInstance } from "../src/axiosInstance";
 import { mutate } from "swr";
 import { UserContext } from "@/src/userContext";
-import Image from "next/image";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function CreateActivity(props) {
   const {
@@ -20,6 +21,7 @@ export function CreateActivity(props) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [imageSizeError, setImageSizeError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data) => {
     const newActivity = {
@@ -33,6 +35,8 @@ export function CreateActivity(props) {
       description: data.description,
     };
 
+    setLoading(true);
+
     console.log(newActivity);
     axiosInstance
       .post("api/posts", newActivity)
@@ -43,10 +47,12 @@ export function CreateActivity(props) {
         props.onClose();
         setPreviewImage(null);
         setImageFile(null);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
         console.log("error: " + error.message);
+        setLoading(false);
       });
   };
 
@@ -77,6 +83,10 @@ export function CreateActivity(props) {
 
   return (
     <div className="form-container">
+      <Backdrop open={loading} style={{ zIndex: 9999 }}>
+        {/* You can customize the backdrop's content */}
+        <CircularProgress />
+      </Backdrop>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Create Activity</h3>
         <div className="image-container">

@@ -13,6 +13,13 @@ import defaultImg from "../public/images/mock/astronaut.png";
 export default function Profile() {
   const { userData } = useContext(UserContext);
 
+  const calculateBMI = () => {
+    const weight = parseFloat(userData?.weight);
+    const height = parseFloat(userData?.height) / 100; // Convert height to meters
+    const calculatedBmi = weight / (height * height);
+    return calculatedBmi.toFixed(2); // Return BMI rounded to 2 decimal places
+  };
+
   // const [name, setName] = useState("John doe");
   // const [email, setEmail] = useState("johndoe@gmail.com");
   // const [uid, setUid] = useState("123456789");
@@ -107,8 +114,12 @@ export default function Profile() {
                     <p className="px-4">{displayText(userData?.email)}</p>
                   </div>
                   <div className="flex">
-                    <p className="font-bold">User Id:</p>
-                    <p className="px-4">{displayText(userData?.userId)}</p>
+                    <p className="font-bold">Fullname:</p>
+                    <p className="px-4">
+                      {displayText(
+                        `${userData?.firstName} ${userData?.lastName}`
+                      )}
+                    </p>
                   </div>
                 </div>
                 <div className="half-bot-section grid grid-cols-3 grid-rows-2 h-1/2 px-8">
@@ -117,12 +128,12 @@ export default function Profile() {
                     <p>{displayText(userData?.weight)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
-                    <p className="font-bold text-lg">height</p>
+                    <p className="font-bold text-lg">Height</p>
                     <p>{displayText(userData?.height)}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">BMI</p>
-                    <p>{displayText(userData?.height)}</p>
+                    <p>{displayText(calculateBMI())}</p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Gender</p>
