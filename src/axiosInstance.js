@@ -34,7 +34,7 @@ async function logoutUserAndRedirect() {
 
 export async function fetch(path) {
   try {
-    return await axiosInstance.get(path).then((response) => {
+    return axiosInstance.get(path).then((response) => {
       console.log(response.data);
       return response.data;
     });

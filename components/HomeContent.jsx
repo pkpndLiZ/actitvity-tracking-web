@@ -2,13 +2,21 @@ import { CardItem } from "@/components/CardItem";
 import { CardItemList } from "@/src/fixture/card-item-mock";
 import { fetch } from "../src/axiosInstance";
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import UserProfile from "@/pages/profile";
+import { useRouter } from "next/router";
 
 export function HomeContent() {
-  const [success, setSuccess] = useState(false);
+  const router = useRouter();
+  const activity = router.query.activity;
+  const { data: posts, error } = useSWR("api/posts", (path) => {
+    return fetch(path + (activity ? `?activity=${activity}` : ""));
+  });
 
-  const { data: posts, error } = useSWR("api/posts", fetch);
+  useEffect(() => {
+    console.log("Loading posts...");
+    mutate("api/posts");
+  }, [activity]);
 
   if (error) {
     return <div>Error loading activities: {error}</div>;
