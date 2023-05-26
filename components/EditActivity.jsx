@@ -61,7 +61,7 @@ export function EditActivity(props) {
 
     setLoading(true);
 
-    console.log(newActivity);
+    // console.log(newActivity);
     axiosInstance
       .put(`api/posts/${props.item.posts._id}`, newActivity)
       .then(async (response) => {
