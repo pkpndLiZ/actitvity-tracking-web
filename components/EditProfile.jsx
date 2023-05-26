@@ -230,11 +230,11 @@ export function EditProfile(props) {
             />
           </div>
           <div>
-            {errors.city || errors.lastName ? (
+            {errors.city && (
               <span className="text-red-500 text-sm">
-                City must not contain number or symbol
+                City must not contain numbers or symbols
               </span>
-            ) : null}
+            )}
           </div>
           <div className="flex w-full gap-4 py-4">
             <div className="flex w-full items-center">

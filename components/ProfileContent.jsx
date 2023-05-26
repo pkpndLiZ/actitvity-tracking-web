@@ -117,7 +117,9 @@ export default function Profile() {
                     <p className="font-bold">Fullname:</p>
                     <p className="px-4">
                       {displayText(
-                        `${userData?.firstName} ${userData?.lastName}`
+                        userData?.firstName && userData?.lastName
+                          ? `${userData?.firstName} ${userData?.lastName}`
+                          : "-"
                       )}
                     </p>
                   </div>
@@ -133,7 +135,13 @@ export default function Profile() {
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">BMI</p>
-                    <p>{displayText(calculateBMI())}</p>
+                    <p>
+                      {displayText(
+                        userData?.weight && userData?.height
+                          ? calculateBMI()
+                          : "-"
+                      )}
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Gender</p>
