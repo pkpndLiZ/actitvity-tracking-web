@@ -91,7 +91,7 @@ export function EditActivity(props) {
       setValue("description", props.item.posts?.description);
 
       if (!imageFile) {
-        setPreviewImage(props.item.posts.imageUrl);
+        setPreviewImage(props.item.posts?.imageUrl);
       }
     }
   }, [props.item, imageFile]);

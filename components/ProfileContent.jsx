@@ -56,6 +56,7 @@ export default function Profile() {
   // };
 
   const handleModalOpen = () => {
+    // console.log(props.item.posts);
     setModalIsOpen(true);
   };
 
