@@ -24,7 +24,7 @@ export function ActivityForm() {
       distance: `${data.distance}km`,
     };
 
-    console.log(newActivity);
+    // console.log(newActivity);
     reset();
   };
 

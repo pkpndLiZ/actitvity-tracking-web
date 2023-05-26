@@ -61,12 +61,12 @@ export function EditActivity(props) {
 
     setLoading(true);
 
-    console.log(newActivity);
+    // console.log(newActivity);
     axiosInstance
       .put(`api/posts/${props.item.posts._id}`, newActivity)
       .then(async (response) => {
         setSuccess(true);
-        console.log("response: ", response);
+        // console.log("response: ", response);
         await mutate("api/posts");
         props.onClose();
         setPreviewImage(imageFile || props.item.imageUrl);

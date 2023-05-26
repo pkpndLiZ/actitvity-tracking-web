@@ -37,12 +37,12 @@ export function CreateActivity(props) {
 
     setLoading(true);
 
-    console.log(newActivity);
+    // console.log(newActivity);
     axiosInstance
       .post("api/posts", newActivity)
       .then(async (response) => {
         setSuccess(true);
-        console.log("response: ", response);
+        // console.log("response: ", response);
         await mutate("api/posts");
         props.onClose();
         setPreviewImage(null);

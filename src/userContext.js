@@ -14,9 +14,9 @@ const UserProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    console.log("userId:", userId);
+    // console.log("userId:", userId);
     const userIdCache = localStorage.getItem("userId");
-    console.log("userIdCache:", userIdCache);
+    // console.log("userIdCache:", userIdCache);
     if (userIdCache) {
       setUserId(userIdCache);
     }

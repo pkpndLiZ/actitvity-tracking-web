@@ -83,12 +83,12 @@ export function EditProfile(props) {
 
     setLoading(true);
 
-    console.log(userInfo);
+    // console.log(userInfo);
     axiosInstance
       .put(`api/users/${auth.currentUser.uid}`, userInfo)
       .then(async (response) => {
         setSuccess(true);
-        console.log("response: ", response);
+        // console.log("response: ", response);
         await updateUserData();
         props.onClose();
         setLoading(false);
