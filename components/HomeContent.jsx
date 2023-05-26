@@ -16,7 +16,7 @@ export function HomeContent() {
   });
 
   useEffect(() => {
-    console.log("Loading posts...");
+    // console.log("Loading posts...");
     mutate("api/posts");
   }, [activity]);
 

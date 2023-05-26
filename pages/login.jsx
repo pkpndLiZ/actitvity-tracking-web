@@ -35,7 +35,7 @@ export default function Login(props) {
         localStorage.setItem("userId", user.uid);
         updateUserData();
         router.push("/");
-        console.log(user);
+        // console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;

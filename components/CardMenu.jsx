@@ -82,7 +82,6 @@ export default function CardMenu(props) {
       >
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
         <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
-        <MenuItem onClick={handleClose}>Report</MenuItem>
       </Menu>
       <Modal
         open={editModalIsOpen}

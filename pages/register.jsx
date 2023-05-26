@@ -36,7 +36,7 @@ export default function Register(props) {
       const user = userCredential.user;
       const { uid } = user;
 
-      console.log(user);
+      // console.log(user);
 
       const userInfo = {
         userId: uid,
@@ -52,7 +52,7 @@ export default function Register(props) {
         })
         .then(async (response) => {
           setSuccess(true);
-          console.log("response: ", response);
+          // console.log("response: ", response);
           enqueueSnackbar("Register success.", { variant: "success" });
           router.push("/login");
         })
@@ -63,7 +63,7 @@ export default function Register(props) {
       const errorCode = error.code;
       const errorMessage = error.message;
       setError(true);
-      console.log(errorCode, errorMessage);
+      // console.log(errorCode, errorMessage);
       enqueueSnackbar(`Register failed: ${errorMessage}`, { variant: "error" });
     }
   };

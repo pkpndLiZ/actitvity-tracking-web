@@ -9,6 +9,8 @@ import { EditProfile } from "./EditProfile";
 import Image from "next/image";
 import { UserContext } from "@/src/userContext";
 import defaultImg from "../public/images/mock/astronaut.png";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Profile() {
   const { userData } = useContext(UserContext);
@@ -56,6 +58,7 @@ export default function Profile() {
   // };
 
   const handleModalOpen = () => {
+    // console.log(props.item.posts);
     setModalIsOpen(true);
   };
 
@@ -72,7 +75,12 @@ export default function Profile() {
   }
 
   if (!posts) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Backdrop />
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
@@ -117,7 +125,9 @@ export default function Profile() {
                     <p className="font-bold">Fullname:</p>
                     <p className="px-4">
                       {displayText(
-                        `${userData?.firstName} ${userData?.lastName}`
+                        userData?.firstName && userData?.lastName
+                          ? `${userData?.firstName} ${userData?.lastName}`
+                          : "-"
                       )}
                     </p>
                   </div>
@@ -133,7 +143,13 @@ export default function Profile() {
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">BMI</p>
-                    <p>{displayText(calculateBMI())}</p>
+                    <p>
+                      {displayText(
+                        userData?.weight && userData?.height
+                          ? calculateBMI()
+                          : "-"
+                      )}
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center gap-1">
                     <p className="font-bold text-lg">Gender</p>

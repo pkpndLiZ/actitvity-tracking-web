@@ -83,12 +83,12 @@ export function EditProfile(props) {
 
     setLoading(true);
 
-    console.log(userInfo);
+    // console.log(userInfo);
     axiosInstance
       .put(`api/users/${auth.currentUser.uid}`, userInfo)
       .then(async (response) => {
         setSuccess(true);
-        console.log("response: ", response);
+        // console.log("response: ", response);
         await updateUserData();
         props.onClose();
         setLoading(false);
@@ -230,11 +230,11 @@ export function EditProfile(props) {
             />
           </div>
           <div>
-            {errors.city || errors.lastName ? (
+            {errors.city && (
               <span className="text-red-500 text-sm">
-                City must not contain number or symbol
+                City must not contain numbers or symbols
               </span>
-            ) : null}
+            )}
           </div>
           <div className="flex w-full gap-4 py-4">
             <div className="flex w-full items-center">
