@@ -9,6 +9,8 @@ import { EditProfile } from "./EditProfile";
 import Image from "next/image";
 import { UserContext } from "@/src/userContext";
 import defaultImg from "../public/images/mock/astronaut.png";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Profile() {
   const { userData } = useContext(UserContext);
@@ -73,7 +75,12 @@ export default function Profile() {
   }
 
   if (!posts) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Backdrop />
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
